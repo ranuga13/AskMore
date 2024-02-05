@@ -2,9 +2,16 @@
 @tailwind components;
 @tailwind utilities;
  
-#root{
-    font-size: 100px;
-    color: rgb(178, 178, 178);
-    background: rgb(2,0,36);
-    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
-}
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  @layer components {
+    .button {
+      @apply bg-[#50ccc8] py-2 px-4 rounded-full text-white text-lg font-semibold hover:opacity-80 duration-200
+    }
+  }
