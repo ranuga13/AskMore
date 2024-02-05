@@ -1,0 +1,16 @@
+{
+  "boards": [
+    {
+      "name": "Session 01",
+      "isActive": true
+    },
+    {
+      "name": "Session 02",
+      "isActive": false
+    },
+    {
+      "name": "Session 03",
+      "isActive": false
+    }
+  ]
+}
