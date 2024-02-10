@@ -8,11 +8,13 @@ import HeaderDropDown from "./HeaderDropDown";
 import AddEditBoardModal from "../modals/AddEditBoardModal";
 import { useDispatch, useSelector } from "react-redux";
 import ElipsisMenu from "./ElipsisMenu"; // Import the ElipsisMenu component
+import DeleteModal from "../modals/DeleteModal";
+import boardsSlice from "../redux/boardsSlice";
 
 function Header({ setBoardModalOpen, boardModalOpen }) {
   const [openDropdown, setOpenDropdown] = useState(false);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isElipsisOpen, setIsElipsisOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const [boardType, setBoardType] = useState("add");
   const dispatch = useDispatch();
   const boards = useSelector((state) => state.boards);
@@ -28,10 +30,22 @@ function Header({ setBoardModalOpen, boardModalOpen }) {
     setIsElipsisOpen(false)
   }
 
+  const onDeleteBtnClick = () => {
+    dispatch(boardsSlice.actions.deleteBoard())
+    dispatch(boardsSlice.actions.setBoardActive({index : 0}))
+    setIsDeleteModalOpen(false)
+  }
+
+  const onDropdownClick = () => {
+    setOpenDropdown(state => !state)
+    setIsElipsisOpen(false)
+    setBoardType('add')
+  }
+
   return (
     <div className="p-4 fixed left-0 bg-white dark:bg-[#2b2c37] z-50 right-0">
       <header className="flex justify-between dark:text-white items-center">
-        {/* Left Side  */}
+        {/* Left Side */}
         <div className="flex items-center space-x-2 md:space-x-4">
           <img src={Logo} alt="Logo" className="h-50 w-40" />
           <h3 className="md:text-4xl hidden md:inline-block font-bold font-sans">
@@ -45,7 +59,7 @@ function Header({ setBoardModalOpen, boardModalOpen }) {
               src={openDropdown ? iconUp : iconDown}
               alt="dropdown icon"
               className="w-3 ml-2 md:hidden"
-              onClick={() => setOpenDropdown((state) => !state)}
+              onClick={onDropdownClick}
             />
           </div>
         </div>
@@ -64,10 +78,11 @@ function Header({ setBoardModalOpen, boardModalOpen }) {
               setIsElipsisOpen((state) => !state);
             }}
           />
-          {isElipsisOpen && <ElipsisMenu 
-          setOpenDeleteModal={setIsDeleteModalOpen}
-          setOpenEditModal={setOpenEditModal}
-          type="Boards" />} {/* Render ElipsisMenu if isElipsisOpen is true */}
+          {isElipsisOpen && <ElipsisMenu
+            setOpenEditModal={setOpenEditModal}
+            setOpenDeleteModal={setOpenDeleteModal}
+            type="Boards"/>
+          }
         </div>
       </header>
       {openDropdown && (
@@ -83,6 +98,12 @@ function Header({ setBoardModalOpen, boardModalOpen }) {
           setBoardModalOpen={setBoardModalOpen}
         />
       )}
+
+      {
+        isDeleteModalOpen && <DeleteModal setIsDeleteModalOpen={setIsDeleteModalOpen}
+        onDeleteBtnClick={onDeleteBtnClick} title={board.name} type={boardType}/>
+      }
+
     </div>
   );
 }
