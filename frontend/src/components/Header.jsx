@@ -1,3 +1,4 @@
+// Header.js
 import React, { useState } from "react";
 import Logo from "../assets/logo.jpg";
 import iconDown from "../assets/icon-down.svg";
@@ -6,42 +7,67 @@ import elipsis from "../assets/icon-vertical-ellipsis.svg";
 import HeaderDropDown from "./HeaderDropDown";
 import AddEditBoardModal from "../modals/AddEditBoardModal";
 import { useDispatch, useSelector } from "react-redux";
+import ElipsisMenu from "./ElipsisMenu"; // Import the ElipsisMenu component
 
 function Header({ setBoardModalOpen, boardModalOpen }) {
   const [openDropdown, setOpenDropdown] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isElipsisOpen, setIsElipsisOpen] = useState(false);
   const [boardType, setBoardType] = useState("add");
   const dispatch = useDispatch();
   const boards = useSelector((state) => state.boards);
   const board = boards.find((board) => board.isActive);
 
+  const setOpenEditModal = () => {
+    setBoardModalOpen(true)
+    setIsElipsisOpen(false)
+  }
+
+  const setOpenDeleteModal = () => {
+    setIsDeleteModalOpen(true)
+    setIsElipsisOpen(false)
+  }
+
   return (
-    <div className=" p-4 fixed left-0 bg-white dark:bg-[#2b2c37] z-50 right-0 ">
-      <header className=" flex justify-between dark:text-white items-center  ">
+    <div className="p-4 fixed left-0 bg-white dark:bg-[#2b2c37] z-50 right-0">
+      <header className="flex justify-between dark:text-white items-center">
         {/* Left Side  */}
-        <div className=" flex items-center space-x-2  md:space-x-4">
-          <img src={Logo} alt=" Logo " className=" h-50 w-40" />
-          <h3 className=" md:text-4xl  hidden md:inline-block font-bold  font-sans">
+        <div className="flex items-center space-x-2 md:space-x-4">
+          <img src={Logo} alt="Logo" className="h-50 w-40" />
+          <h3 className="md:text-4xl hidden md:inline-block font-bold font-sans">
             AskMore
           </h3>
-          <div className=" flex items-center ">
-            <h3 className=" truncate max-w-[200px] md:text-2xl text-xl font-bold md:ml-20 font-sans  ">
+          <div className="flex items-center">
+            <h3 className="truncate max-w-[200px] md:text-2xl text-xl font-bold md:ml-20 font-sans">
               {board.name}
             </h3>
             <img
               src={openDropdown ? iconUp : iconDown}
-              alt=" dropdown icon"
-              className=" w-3 ml-2 md:hidden"
+              alt="dropdown icon"
+              className="w-3 ml-2 md:hidden"
               onClick={() => setOpenDropdown((state) => !state)}
             />
           </div>
         </div>
 
         {/* Right Side */}
-
-        <div className=" flex space-x-4 items-center md:space-x-6 ">
-          <button className=" button hidden md:block ">+ Add New Task</button>
-          <button className=" button py-1 px-3 md:hidden ">+</button>
-          <img src={elipsis} alt="elipsis" className=" cursor-pointer h-6" />
+        <div className="flex space-x-4 items-center md:space-x-6">
+          <button className="button hidden md:block">+ Add New Task</button>
+          <button className="button py-1 px-3 md:hidden">+</button>
+          <img
+            src={elipsis}
+            alt="elipsis"
+            className="cursor-pointer h-6"
+            onClick={() => {
+              setBoardType("edit");
+              setOpenDropdown(false);
+              setIsElipsisOpen((state) => !state);
+            }}
+          />
+          {isElipsisOpen && <ElipsisMenu 
+          setOpenDeleteModal={setIsDeleteModalOpen}
+          setOpenEditModal={setOpenEditModal}
+          type="Boards" />} {/* Render ElipsisMenu if isElipsisOpen is true */}
         </div>
       </header>
       {openDropdown && (
