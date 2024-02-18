@@ -113,7 +113,7 @@ function AddEditTaskModal(type,device,setOpenAddEditTask,taskIndex,prevColIndex 
             Task Name
           </label>
           <input
-            // value={title}
+            value={title}
             onChange={(e) => setTitle(e.target.value)}
             
             type="text"
