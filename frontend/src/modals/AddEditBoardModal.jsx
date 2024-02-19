@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import React, { useState } from "react";
 import { v4 as uuidv4, validate } from "uuid";
 import crossIcon from "../assets/icon-cross.svg";
@@ -7,6 +8,9 @@ import boardSlices from "../redux/boardsSlice";
 function AddEditBoardModal({ setBoardModalOpen, type }) {
   const [name, setName] = useState("");
   const [isValid, setIsValid] = useState(true);
+  const board = useSelector(state => state.boards).find(
+    (board) => board.isActive
+  );
   const dispatch = useDispatch();
 
   const [newColumns, setNewColumns] = useState([
