@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import React, { useState } from "react";
 import { v4 as uuidv4, validate } from "uuid";
 import crossIcon from "../assets/icon-cross.svg";
@@ -7,6 +8,9 @@ import boardSlices from "../redux/boardsSlice";
 function AddEditBoardModal({ setBoardModalOpen, type }) {
   const [name, setName] = useState("");
   const [isValid, setIsValid] = useState(true);
+  const board = useSelector(state => state.boards).find(
+    (board) => board.isActive
+  );
   const dispatch = useDispatch();
 
   const [newColumns, setNewColumns] = useState([
@@ -33,8 +37,8 @@ function AddEditBoardModal({ setBoardModalOpen, type }) {
       return false;
     }
 
-    for (let i = 0; index < newColumns.length; i++) {
-      if (!newColumn[i].name.trim()) {
+    for (let i = 0; i < newColumns.length; i++) {
+      if (!newColumns[i].name.trim()) {
         return false;
       }
     }
@@ -111,7 +115,7 @@ function AddEditBoardModal({ setBoardModalOpen, type }) {
         </div>
         <div>
           <button
-            className="w-full items-center hover:opacity-75 dark:text-[#50ccc8] dark:bg-white bg-[#50ccc8] mt-2 py-2 rounded-full"
+            className="w-full items-center hover:opacity-75 dark:text-[#50ccc8] dark:bg-white text-white bg-[#50ccc8] mt-2 py-2 rounded-full"
             onClick={() => {
               setNewColumns((state) => [
                 ...state,
@@ -131,7 +135,7 @@ function AddEditBoardModal({ setBoardModalOpen, type }) {
               }
             }}
           >
-            {type === "add" ? "Creat New Board" : "Save Changes"}
+            {type === "add" ? "Create New Board" : "Save Changes"}
           </button>
         </div>
       </div>

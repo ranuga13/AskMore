@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Switch } from "@headlessui/react";
-import boardIcon from "../assets/icon-board.svg";
 import useDarkMode from "../hooks/useDarkMode";
 import darkIcon from "../assets/icon-dark-theme.svg";
 import lightIcon from "../assets/icon-light-theme.svg";
+import boardIcon from "../assets/icon-board.svg";
 import boardsSlice from "../redux/boardsSlice";
 
-
-function HeaderDropDown({ setOpenDropdown, setIsBoardModalOpen }) {
-  const dispatch = useDispatch()
+function HeaderDropDown({ setOpenDropdown, setBoardModalOpen }) {
+  const boards = useSelector((state) => state.boards);
+  // console.log("boards =", boards);
+  const dispatch = useDispatch();
   const [colorTheme, setTheme] = useDarkMode();
   const [darkSide, setDarkSide] = useState(
     colorTheme === "light" ? true : false
@@ -20,11 +21,9 @@ function HeaderDropDown({ setOpenDropdown, setIsBoardModalOpen }) {
     setDarkSide(checked);
   };
 
-  const boards = useSelector((state) => state.boards);
-
   return (
     <div
-      className=" py-10 px-6 absolute  left-0 right-0 bottom-[-100vh] top-16 dropdown "
+      className=" py-10 px-6 absolute  left-0 right-0 bottom-[-100vh] top-16 dropdown bg-[#00000080]"
       onClick={(e) => {
         if (e.target !== e.currentTarget) {
           return;
@@ -44,7 +43,7 @@ function HeaderDropDown({ setOpenDropdown, setIsBoardModalOpen }) {
             <div
               className={` flex items-baseline space-x-2 px-5 py-4  ${
                 board.isActive &&
-                " bg-[#635fc7] rounded-r-full text-white mr-8 "
+                " bg-[#50ccc8] rounded-r-full text-white mr-8 "
               } `}
               key={index}
               onClick={() => {
@@ -52,20 +51,23 @@ function HeaderDropDown({ setOpenDropdown, setIsBoardModalOpen }) {
               }}
             >
               <img src={boardIcon} className="  filter-white  h-4 " />{" "}
-              <p className=" text-lg font-bold  ">{board.name}</p>
+              <p
+                className={`text-lg font-bold ${darkSide ? "text-white" : ""}`}
+              >
+                {board.name}
+              </p>
             </div>
           ))}
-
-          <div 
-          onClick={() => {
-            setIsBoardModalOpen(true);
-            setOpenDropdown(false)
-          }}
-          className=" flex items-baseline space-x-2  text-[#635fc7] px-5 py-4  ">
+          <div
+            className="cursor-pointer flex items-baseline space-x-2 text-[#50ccc8] px-5 py-4"
+            onClick={() => {
+              setBoardModalOpen(true);
+              setOpenDropdown(false);
+            }}
+          >
             <img src={boardIcon} className="   filter-white  h-4 " />
-            <p className=" text-lg font-bold  ">Create New Board </p>
+            <p className=" text-lg font-bold  ">+ Create New Board </p>
           </div>
-
           <div className=" mx-2  p-4  space-x-2 bg-slate-100 dark:bg-[#20212c] flex justify-center items-center rounded-lg">
             <img src={lightIcon} alt="sun indicating light mode" />
 
