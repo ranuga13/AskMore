@@ -1,12 +1,13 @@
 import { useSelector } from 'react-redux';
-import React, { useState } from "react";
-import { v4 as uuidv4, validate } from "uuid";
+import React, { useState, useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
 import crossIcon from "../assets/icon-cross.svg";
 import { useDispatch } from "react-redux";
 import boardSlices from "../redux/boardsSlice";
 
 function AddEditBoardModal({ setBoardModalOpen, type }) {
   const [name, setName] = useState("");
+  const [isFirstLoad, setIsFirstLoad] = useState(true)
   const [isValid, setIsValid] = useState(true);
   const board = useSelector(state => state.boards).find(
     (board) => board.isActive
@@ -18,9 +19,19 @@ function AddEditBoardModal({ setBoardModalOpen, type }) {
     { name: "Functional Questions", task: [], id: uuidv4() },
   ]);
 
+  if (type === 'edit' && isFirstLoad) {
+    setNewColumns(
+        board.columns.map((col) => {
+            return {...col , id : uuidv4()}
+        })
+    )
+    setName(board.name)
+    setIsFirstLoad(false)
+  }
+
   const onChange = (id, newValue) => {
-    setNewColumns((pervState) => {
-      const newState = [...pervState];
+    setNewColumns((prevState) => {
+      const newState = [...prevState];
       const column = newState.find((col) => col.id === id);
       column.name = newValue;
       return newState;
@@ -28,7 +39,7 @@ function AddEditBoardModal({ setBoardModalOpen, type }) {
   };
 
   const onDelete = (id) => {
-    setNewColumns((perState) => perState.filter((el) => el.id !== id));
+    setNewColumns((prevState) => prevState.filter((el) => el.id !== id));
   };
 
   const validate = () => {
@@ -74,7 +85,7 @@ function AddEditBoardModal({ setBoardModalOpen, type }) {
         {/* Task Name */}
         <div className="mt-8 flex flex-col space-y-3">
           <label className="text-sm dark:text-white text-gray-500">
-            Board Columns
+            Board Name
           </label>
           <input
             className=" bg-transparent px-4 py-2 rounded-md text-sm border border-gray-600 outline-none focus:outline-[#50ccc8] outline-1 ring-0"
