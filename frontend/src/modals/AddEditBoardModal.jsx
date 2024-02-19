@@ -10,8 +10,8 @@ function AddEditBoardModal({ setBoardModalOpen, type }) {
   const dispatch = useDispatch();
 
   const [newColumns, setNewColumns] = useState([
-    { name: "Todo", task: [], id: uuidv4() },
-    { name: "Doing", task: [], id: uuidv4() },
+    { name: "Technical Questions", task: [], id: uuidv4() },
+    { name: "Functional Questions", task: [], id: uuidv4() },
   ]);
 
   const onChange = (id, newValue) => {
