@@ -7,7 +7,7 @@ import HeaderDropDown from "./HeaderDropDown";
 import AddEditBoardModal from "../modals/AddEditBoardModal";
 import { useDispatch, useSelector } from "react-redux";
 import AddEditTaskModal from "../modals/AddEditTaskModal";
-import ElipsisMenu from "./ElipsisMenu"; // Import the ElipsisMenu component
+import ElipsisMenu from "./ElipsisMenu";
 import DeleteModal from "../modals/DeleteModal";
 import boardsSlice from "../redux/boardsSlice";
 
@@ -68,11 +68,20 @@ function Header({ setBoardModalOpen, boardModalOpen }) {
         {/* Right Side */}
 
         <div className=" flex space-x-4 items-center md:space-x-6 ">
-          <button className=" button hidden md:block ">+ Add New Task</button>
           <button
-            onClick={() => {
-              setOpenAddEditTask((state) => !state);
-            }}
+            onClick={
+                () => {
+                    setOpenAddEditTask((state) => !state);
+                }
+            }
+
+            className=" button hidden md:block ">+ Add New Task</button>
+          <button
+            onClick={
+                () => {
+                    setOpenAddEditTask((state) => !state);
+                }
+            }
             className=" button py-1 px-3 md:hidden "
           >
             +

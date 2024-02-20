@@ -38,7 +38,7 @@ function HeaderDropDown({ setOpenDropdown, setBoardModalOpen }) {
           ALL BOARDS ({boards?.length})
         </h3>
 
-        <div className=" dropdown-borad  ">
+        <div className=" dropdown-board  ">
           {boards.map((board, index) => (
             <div
               className={` flex items-baseline space-x-2 px-5 py-4  ${
