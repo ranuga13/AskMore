@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import TaskModal from "../modals/TaskModal";
+import TaskModal from "./TaskModal.jsx";
 
-function Task({ colIndex, taskIndex }) {
+function Task({ taskIndex ,colIndex}) {
   const boards = useSelector((state) => state.boards);
   const board = boards.find((board) => board.isActive === true);
   const columns = board.columns;
