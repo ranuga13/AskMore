@@ -3,20 +3,20 @@ import { useSelector } from "react-redux";
 import AddEditBoardModal from "../modals/AddEditBoardModal";
 import Column from "./Column";
 import EmptyBoard from "./EmptyBoard";
-import Sidebar from "./Sidebar";
+import SideBar from "./SideBar";
 
-function Center() {
+function Center(boardModalOpen,setBoardModalOpen) {
   const boards = useSelector((state) => state.boards);
   const board = boards.find((board) => board.isActive === true);
   const columns = board.columns;
-
+  const [isBoardModalOpen, setIsBoardModalOpen] = useState(false);
   const [isSideBarOpen, setIsSideBarOpen] = useState(true);
 
   const [windowSize, setWindowSize] = useState([
     window.innerWidth,
     window.innerHeight,
   ]);
-  const [isBoardModalOpen, setIsBoardModalOpen] = useState(false);
+  
 
   useEffect(() => {
     const handleWindowResize = () => {
@@ -40,7 +40,7 @@ function Center() {
     }
     >
     {windowSize[0] >= 768 && (
-      <Sidebar/>
+      <SideBar/>
     )}
     {columns.map((col, index) => (
             <Column key={index} colIndex={index} />
