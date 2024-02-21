@@ -1,7 +1,7 @@
 {
   "boards": [
     {
-      "name": "Science",
+      "name": "Science Session",
       "isActive": false,
       "columns": [
         {
