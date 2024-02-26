@@ -31,7 +31,8 @@ function App() {
                       setBoardModalOpen={setBoardModalOpen}/>
 
               {/* Center Section */}
-              <Center/>
+              <Center boardModalOpen={boardModalOpen} 
+                      setBoardModalOpen={setBoardModalOpen} />
 
               </>
               :

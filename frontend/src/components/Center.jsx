@@ -40,7 +40,7 @@ function Center(boardModalOpen,setBoardModalOpen) {
     }
     >
     {windowSize[0] >= 768 && (
-      <SideBar/>
+      <SideBar isSideBarOpen={isSideBarOpen} setIsSideBarOpen ={setIsSideBarOpen} />
     )}
     {columns.map((col, index) => (
             <Column key={index} colIndex={index} />
