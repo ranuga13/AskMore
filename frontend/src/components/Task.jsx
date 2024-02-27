@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import TaskModal from "./TaskModal.jsx";
 
-function Task({ taskIndex ,colIndex}) {
+function Task({ taskIndex, colIndex }) {
   const boards = useSelector((state) => state.boards);
   const board = boards.find((board) => board.isActive === true);
   const columns = board.columns;
@@ -18,24 +18,20 @@ function Task({ taskIndex ,colIndex}) {
     }
   });
 
-
   return (
     <div>
       <div
         onClick={() => {
           setIsTaskModalOpen(true);
         }}
-        
-        className=" w-[280px] first:my-5 rounded-lg  bg-white  dark:bg-[#2b2c37] shadow-[#364e7e1a] py-6 px-3 shadow-lg hover:text-[#635fc7] dark:text-white dark:hover:text-[#635fc7] cursor-pointer "
+        className=" w-[280px] first:my-5 rounded-lg  bg-white  dark:bg-[#2b2c37] shadow-[#364e7e1a] py-6 px-3 shadow-lg hover:text-[#50ccc8] dark:text-white dark:hover:text-[#50ccc8] cursor-pointer "
       >
         <p className=" font-bold tracking-wide ">{task.title}</p>
         <p className=" font-bold text-xs tracking-tighter mt-2 text-gray-500">
           {/* {completed} of {subtasks.length} completed tasks */}
         </p>
       </div>
-      {isTaskModalOpen && (
-        <TaskModal/>
-      )}
+      {isTaskModalOpen && <TaskModal />}
     </div>
   );
 }
