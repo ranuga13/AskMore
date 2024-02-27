@@ -82,7 +82,7 @@ function AddEditTaskModal({ type, device, setOpenAddEditTask }) {
             onChange={(e) => setTitle(e.target.value)}
             id="task-name-input"
             type="text"
-            className=" bg-transparent  px-4 py-2 outline-none focus:border-0 rounded-md text-sm  border-[0.5px] border-gray-600 focus:outline-[#635fc7] outline-1  ring-0  "
+            className=" bg-transparent  px-4 py-2 outline-none focus:border-0 rounded-md text-sm  border-[0.5px] border-gray-600 focus:outline-[#50ccc8] outline-1  ring-0  "
             placeholder=" Type your Question ..."
           />
         </div>
@@ -99,7 +99,7 @@ function AddEditTaskModal({ type, device, setOpenAddEditTask }) {
                 // type === "edit" && setIsTaskModalOpen(false);
               }
             }}
-            className=" w-full items-center text-white bg-[#635fc7] py-2 rounded-full "
+            className=" w-full items-center text-white bg-[#50ccc8] py-2 rounded-full "
           >
             {type === "edit" ? " save edit" : "Create question"}
           </button>
