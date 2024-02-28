@@ -5,13 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f94f1a1a-1e1d-49db-849b-d56cc6ba124b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/EmptyBoard.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Header.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Header.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/HeaderDropDown.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/HeaderDropDown.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/data/data.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/data/data.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/modals/AddEditBoardModal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/modals/AddEditBoardModal.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
