@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import crossIcon from "../assets/icon-cross.svg";
@@ -7,9 +7,9 @@ import boardSlices from "../redux/boardsSlice";
 
 function AddEditBoardModal({ setBoardModalOpen, type }) {
   const [name, setName] = useState("");
-  const [isFirstLoad, setIsFirstLoad] = useState(true)
+  const [isFirstLoad, setIsFirstLoad] = useState(true);
   const [isValid, setIsValid] = useState(true);
-  const board = useSelector(state => state.boards).find(
+  const board = useSelector((state) => state.boards).find(
     (board) => board.isActive
   );
   const dispatch = useDispatch();
@@ -19,14 +19,14 @@ function AddEditBoardModal({ setBoardModalOpen, type }) {
     { name: "Functional Questions", task: [], id: uuidv4() },
   ]);
 
-  if (type === 'edit' && isFirstLoad) {
+  if (type === "edit" && isFirstLoad) {
     setNewColumns(
-        board.columns.map((col) => {
-            return {...col , id : uuidv4()}
-        })
-    )
-    setName(board.name)
-    setIsFirstLoad(false)
+      board.columns.map((col) => {
+        return { ...col, id: uuidv4() };
+      })
+    );
+    setName(board.name);
+    setIsFirstLoad(false);
   }
 
   const onChange = (id, newValue) => {

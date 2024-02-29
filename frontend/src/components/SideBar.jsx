@@ -72,7 +72,7 @@ function SideBar({ setIsSideBarOpen, isSideBarOpen }) {
                     <p className="text-ig font-bold">Create New Board</p>
                   </div>
                 </div>
-                <div className="mx-2 p-4 relative space-x-2 bg-slate-100 dark:bg-[#20212c] flex justify-center items-center rounded-lg">
+                <div className="mx-2 p-4 relative space-x-2 bg-slate-100 dark:bg-[#20212c] flex justify-center items-center rounded-lg mb-4">
                   <img src={lightIcon} alt="sun indicating light mode" />
 
                   <Switch
