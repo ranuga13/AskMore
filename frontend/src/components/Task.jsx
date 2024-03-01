@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import TaskModal from "./TaskModal.jsx";
+import TaskModal from "../modals/TaskModal.jsx";
 
 function Task({ taskIndex, colIndex }) {
   const boards = useSelector((state) => state.boards);
@@ -31,7 +31,16 @@ function Task({ taskIndex, colIndex }) {
           {/* {completed} of {subtasks.length} completed tasks */}
         </p>
       </div>
-      {isTaskModalOpen && <TaskModal />}
+      {
+        isTaskModalOpen && (
+          <TaskModal 
+          colIndex={colIndex}
+          taskIndex={taskIndex}
+          setIsTaskModalOpen={setIsTaskModalOpen}
+          />
+        )
+      }
+      
     </div>
   );
 }
