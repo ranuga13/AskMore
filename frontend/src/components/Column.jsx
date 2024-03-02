@@ -28,9 +28,26 @@ function Column({ colIndex }) {
     setColor(shuffle(colors).pop())
   }, [dispatch]);
 
+  const handleOnDragOver = (e) => {
+    e.preventDefault()
+  }
+  const handleOnDrop = (e) => {
+    const { prevColIndex , taskIndex} = JSON.parse(
+      e.dataTransfer.getData("text")
+    )
+
+    if (colIndex !== prevColIndex){
+      dispatch(
+        boardsSlice.actions.dragTask({colIndex ,prevColIndex, taskIndex})
+      )
+    }
+  }
+
 
   return (
     <div
+      onDrop={handleOnDrop}
+      onDragOver={handleOnDragOver}
       className="scrollbar-hide   mx-5 pt-[90px] min-w-[280px] "
     >
       <p className=" font-semibold flex  items-center  gap-2 tracking-widest md:tracking-[.2em] text-[#828fa3]">
