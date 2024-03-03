@@ -10,16 +10,23 @@ import AddEditTaskModal from "../modals/AddEditTaskModal";
 import ElipsisMenu from "./ElipsisMenu";
 import DeleteModal from "../modals/DeleteModal";
 import boardsSlice from "../redux/boardsSlice";
+import ShareModal from "../modals/ShareModal";
 
 function Header({ setBoardModalOpen, boardModalOpen }) {
   const [openDropdown, setOpenDropdown] = useState(false);
   const [openAddEditTask, setOpenAddEditTask] = useState(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [isElipsisOpen, setIsElipsisOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const [boardType, setBoardType] = useState("add");
   const dispatch = useDispatch();
   const boards = useSelector((state) => state.boards);
   const board = boards.find((board) => board.isActive);
+
+  const setOpenShareModal = () => {
+    setIsShareModalOpen(true)
+    setIsElipsisOpen(false)
+  }
 
   const setOpenEditModal = () => {
     setBoardModalOpen(true)
@@ -98,12 +105,14 @@ function Header({ setBoardModalOpen, boardModalOpen }) {
           />
 
           {isElipsisOpen && <ElipsisMenu
+          setOpenShareModal={setOpenShareModal}
           setOpenEditModal={setOpenEditModal}
           setOpenDeleteModal={setOpenDeleteModal}
           type="Boards"/>
           }
         </div>
       </header>
+
       {openDropdown && (
         <HeaderDropDown
           setBoardModalOpen={setBoardModalOpen}
@@ -131,6 +140,11 @@ function Header({ setBoardModalOpen, boardModalOpen }) {
         isDeleteModalOpen && <DeleteModal setIsDeleteModalOpen={setIsDeleteModalOpen}
         onDeleteBtnClick={onDeleteBtnClick} title={board.name} type={boardType}/>
       }
+
+      {
+        isShareModalOpen && <ShareModal setIsShareModalOpen={setIsShareModalOpen}/>
+      }
+
     </div>
   );
 }

@@ -1,7 +1,7 @@
 // ElipsisMenu.js
 import React from "react";
 
-function ElipsisMenu({ type, setOpenEditModal, setOpenDeleteModal }) {
+function ElipsisMenu({ type, setOpenShareModal, setOpenEditModal, setOpenDeleteModal }) {
   return (
     <div
       className={
@@ -12,6 +12,14 @@ function ElipsisMenu({ type, setOpenEditModal, setOpenDeleteModal }) {
     >
       <div className="flex justify-end items-center">
         <div className="w-40 text-sm z-50 font-medium shadow-md shadow-[#364e7e1a] bg-white dark:bg-[#20212c] space-y-4 py-5 px-4 rounded-lg h-auto pr-12">
+        <p
+            className="cursor-pointer dark:text-gray-400 text-gray-700"
+            onClick={() => {
+              setOpenShareModal();
+            }}
+          >
+            Share Session
+          </p>
           <p
             className="cursor-pointer dark:text-gray-400 text-gray-700"
             onClick={() => {
