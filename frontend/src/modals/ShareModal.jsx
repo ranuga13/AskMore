@@ -40,7 +40,7 @@ function ShareModal({ setIsShareModalOpen}) {
                 >
                     
                     <h3
-                    className="font-bold text-black text-xl"
+                    className="font-bold text-black text-xl dark:bg-[#2b2c37] dark:text-white"
                     >
                        Share This Session
                     </h3>
@@ -51,14 +51,14 @@ function ShareModal({ setIsShareModalOpen}) {
                     >
                         <button
                         onClick={handleCopy}
-                        className="w-full items-center text-black 
-                        hover:opacity-85 font-bold bg-[#50ccc8] 
+                        className="w-full items-center text-white  dark:bg-[#2b2c37] dark:text-white
+                        hover:opacity-85 font-bold bg-[#50ccc8] dark:bg-[#50ccc8]
                         py-2 rounded-full"
                         >
                             Click to Copy Link
                         </button>
 
-                        {copied && <span style={{ marginLeft: '0.5rem', color: 'green' }}>Copied!</span>}
+                        {copied && <span className="ml-2 text-black dark:text-white">Copied!</span>}
 
                     </div>
 
