@@ -18,7 +18,7 @@ function ElipsisMenu({ type, setOpenShareModal, setOpenEditModal, setOpenDeleteM
               setOpenShareModal();
             }}
           >
-            Share Session
+            Share {type}
           </p>
           <p
             className="cursor-pointer dark:text-gray-400 text-gray-700"
@@ -26,13 +26,13 @@ function ElipsisMenu({ type, setOpenShareModal, setOpenEditModal, setOpenDeleteM
               setOpenEditModal();
             }}
           >
-            Edit Session
+            Edit {type}
           </p>
           <p className="cursor-pointer text-red-500"
           onClick={() => {
             setOpenDeleteModal();
           }}>
-            Delete Session
+            Delete {type}
           </p>
         </div>
       </div>
