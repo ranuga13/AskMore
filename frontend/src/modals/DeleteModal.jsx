@@ -20,7 +20,7 @@ function DeleteModal({ type, title, onDeleteBtnClick, setIsDeleteModalOpen }) {
             Are you sure you want to delete "{title}" session? This action cannot be undone.
           </p>
         ) : (
-          <p className="text-gray-500 font-semibold tracking-wide text-sm pt-6">
+          <p className="text-gray-500 dark:text-white font-semibold tracking-wide text-sm pt-6">
             Are you sure you want to delete this session? This action will remove all content in this session and cannot be undone.
           </p>
         )}
@@ -33,7 +33,7 @@ function DeleteModal({ type, title, onDeleteBtnClick, setIsDeleteModalOpen }) {
           </button>
           <button
             onClick={() => setIsDeleteModalOpen(false)}
-            className="w-full items-center text-[#353370] hover:opacity-75 font-semibold bg-[#635fc71a] py-2 rounded-full"
+            className="w-full items-center text-[#353370] dark:bg-white hover:opacity-75 font-semibold bg-[#635fc71a] py-2 rounded-full"
           >
             Cancel
           </button>
