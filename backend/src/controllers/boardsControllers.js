@@ -1,9 +1,10 @@
 const Board = require("../models/boardModel");
 
 const getBoards = async (req, res) => {
-  const user_id = req.user._id;
+  // const user_id = req.user._id;
 
   try {
+    res.status(201).json({ message: "Received Boards" });
     const boards = await Board.find({ user_id });
     res.status(200).json(boards);
   } catch (error) {
@@ -12,7 +13,7 @@ const getBoards = async (req, res) => {
 };
 
 const createBoard = async (req, res) => {
-  const user_id = req.user._id;
+  // const user_id = req.user._id;
 
   try {
     const board = await Board.create({ ...req.body, user_id });
