@@ -3,23 +3,28 @@ import Logo from "../assets/logo.jpg";
 import iconDown from "../assets/icon-down.svg";
 import iconUp from "../assets/icon-up.svg";
 import elipsis from "../assets/icon-vertical-ellipsis.svg";
+import profilePic from "../assets/profilePic.jpg";
 import HeaderDropDown from "./HeaderDropDown";
 import AddEditBoardModal from "../modals/AddEditBoardModal";
 import { useDispatch, useSelector } from "react-redux";
 import AddEditTaskModal from "../modals/AddEditTaskModal";
 import ElipsisMenu from "./ElipsisMenu";
 import DeleteModal from "../modals/DeleteModal";
+import ProfileModal from "../modals/ProfileModal";
 import boardsSlice from "../redux/boardsSlice";
+
 
 function Header({ setBoardModalOpen, boardModalOpen }) {
   const [openDropdown, setOpenDropdown] = useState(false);
   const [openAddEditTask, setOpenAddEditTask] = useState(false);
   const [isElipsisOpen, setIsElipsisOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [boardType, setBoardType] = useState("add");
   const dispatch = useDispatch();
   const boards = useSelector((state) => state.boards);
   const board = boards.find((board) => board.isActive);
+  const userName = "Ranuga";
 
   const setOpenEditModal = () => {
     setBoardModalOpen(true)
@@ -66,8 +71,19 @@ function Header({ setBoardModalOpen, boardModalOpen }) {
         </div>
 
         {/* Right Side */}
+        
+        
 
         <div className=" flex space-x-4 items-center md:space-x-6 ">
+
+        <img 
+        src={profilePic}
+        alt="profile-picture"
+        className=" cursor-pointer h-12 rounded-full"
+        onClick={() => setIsProfileModalOpen(true)}
+        />
+
+
           <button
             onClick={
                 () => {
@@ -96,6 +112,8 @@ function Header({ setBoardModalOpen, boardModalOpen }) {
                setIsElipsisOpen((state) => !state);
             }}
           />
+
+          
 
           {isElipsisOpen && <ElipsisMenu
           setOpenEditModal={setOpenEditModal}
@@ -131,6 +149,11 @@ function Header({ setBoardModalOpen, boardModalOpen }) {
         isDeleteModalOpen && <DeleteModal setIsDeleteModalOpen={setIsDeleteModalOpen}
         onDeleteBtnClick={onDeleteBtnClick} title={board.name} type={boardType}/>
       }
+      {isProfileModalOpen && <ProfileModal
+        isOpen={isProfileModalOpen}
+        onClose={() => setIsProfileModalOpen(false)}
+        userName={userName}
+      />}
     </div>
   );
 }
