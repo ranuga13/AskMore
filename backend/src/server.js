@@ -6,10 +6,21 @@ const boardsRoutes = require("./routes/boards.js");
 
 const app = express();
 
+app.use(express.json());
+
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
+
+// routes
+app.use("/api/boards", boardsRoutes);
+
 // Define a simple route
-app.get("/", (req, res) => {
-  res.send("Hello, this is the root path!");
-});
+// app.get("/", (req, res) => {
+//   res.send("Hello, this is the root path!");
+// });
 
 connectToDatabase()
   .then(() => {
@@ -20,3 +31,7 @@ connectToDatabase()
   .catch((error) => {
     console.error("Error starting the app:", error.message);
   });
+
+// app.get("/", (req, res) => {
+//   res.status(201).json({ message: "connected to backend" });
+// });
