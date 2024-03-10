@@ -16,7 +16,8 @@ const createBoard = async (req, res) => {
   // const user_id = req.user._id;
 
   try {
-    const board = await Board.create({ ...req.body, user_id });
+    // const board = await Board.create({ ...req.body, user_id });
+    const board = await Board.create({ ...req.body });
     res.status(200).json(board);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -50,14 +51,14 @@ const editBoard = async (req, res) => {
 
 const addTask = async (req, res) => {
   const id = req.params.id;
-  const { taskName, taskDescription, subtasks, status } = req.body;
+  const { title, status } = req.body;
 
   try {
     const addTaskToBoard = await Board.findOneAndUpdate(
       { _id: id, "columns.name": status },
       {
         $push: {
-          "columns.$.tasks": { taskName, taskDescription, subtasks, status },
+          "columns.$.tasks": { title, status },
         },
       },
       { new: true }

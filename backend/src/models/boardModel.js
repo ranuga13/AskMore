@@ -13,9 +13,6 @@ const taskSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  description: {
-    type: String,
-  },
   status: {
     type: String,
     required: true,
@@ -47,10 +44,10 @@ const boardSchema = new mongoose.Schema({
     default: false,
   },
   columns: [{ type: columnSchema }],
-  // user_id: {
-  //   type: String,
-  //   required: true,
-  // },
+  user_id: {
+    type: String,
+    required: true,
+  },
 });
 
 // Board model
