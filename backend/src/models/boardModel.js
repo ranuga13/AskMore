@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-// Task schema
+// Reply schema
 const replySchema = new mongoose.Schema({
   reply: {
     type: String,
@@ -12,9 +12,6 @@ const taskSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
-  },
-  description: {
-    type: String,
   },
   status: {
     type: String,
@@ -47,6 +44,10 @@ const boardSchema = new mongoose.Schema({
     default: false,
   },
   columns: [{ type: columnSchema }],
+  user_id: {
+    type: String,
+    required: true,
+  },
 });
 
 // Board model
