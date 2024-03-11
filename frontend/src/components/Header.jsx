@@ -12,6 +12,7 @@ import ElipsisMenu from "./ElipsisMenu";
 import DeleteModal from "../modals/DeleteModal";
 import ProfileModal from "../modals/ProfileModal";
 import boardsSlice from "../redux/boardsSlice";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
 
 
 function Header({ setBoardModalOpen, boardModalOpen }) {
@@ -76,12 +77,12 @@ function Header({ setBoardModalOpen, boardModalOpen }) {
 
         <div className=" flex space-x-4 items-center md:space-x-6 ">
 
-        <img 
-        src={profilePic}
-        alt="profile-picture"
-        className=" cursor-pointer h-12 rounded-full"
-        onClick={() => setIsProfileModalOpen(true)}
-        />
+        <SignedOut>
+        <SignInButton />
+      </SignedOut>
+      <SignedIn>
+        <UserButton />
+      </SignedIn>
 
 
           <button
