@@ -47,6 +47,4 @@ router.put("/tasks/delete/:id", deleteTask);
 // api/boards/tasks/subtasks/:id --this is the board's id
 router.put("/tasks/subtasks/:id", editSubtask);
 
-
-
 module.exports = router;
