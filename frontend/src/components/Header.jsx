@@ -12,7 +12,11 @@ import DeleteModal from "../modals/DeleteModal";
 import boardsSlice from "../redux/boardsSlice";
 import ShareModal from "../modals/ShareModal";
 
+import { useClerk } from '@clerk/clerk-react';
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
+
 function Header({ setBoardModalOpen, boardModalOpen }) {
+  const { user } = useClerk();
   const [openDropdown, setOpenDropdown] = useState(false);
   const [openAddEditTask, setOpenAddEditTask] = useState(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
@@ -75,6 +79,16 @@ function Header({ setBoardModalOpen, boardModalOpen }) {
         {/* Right Side */}
 
         <div className=" flex space-x-4 items-center md:space-x-6 ">
+        <div>
+      
+      {/* <SignedOut>
+        <SignInButton />
+      </SignedOut>
+      <SignedIn>
+     
+      </SignedIn> */}
+      <UserButton />
+      </div>
           <button
             onClick={
                 () => {
