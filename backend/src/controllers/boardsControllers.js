@@ -1,21 +1,17 @@
 const Board = require("../models/boardModel");
 
-//works
 const getBoards = async (req, res) => {
   // const user_id = req.user._id;
 
   try {
-    // res.status(201).json({ message: "Received Boards" });
-    // const boards = await Board.find({ user_id });
-    const boards = await Board.find({});
-
+    res.status(201).json({ message: "Received Boards" });
+    const boards = await Board.find({ user_id });
     res.status(200).json(boards);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
 
-//works
 const createBoard = async (req, res) => {
   // const user_id = req.user._id;
 
@@ -28,7 +24,6 @@ const createBoard = async (req, res) => {
   }
 };
 
-//works
 const deleteBoard = async (req, res) => {
   const id = req.params.id;
 
@@ -40,23 +35,20 @@ const deleteBoard = async (req, res) => {
   }
 };
 
-//Works, gut when just the name and the columns are given in josn data, the questions will dissapear.
 const editBoard = async (req, res) => {
   const id = req.params.id;
 
   try {
     let editedBoard = await Board.findById(id);
-    editedBoard.name = req.body.name;
+    editedBoard.name = req.body.name; // Update the appropriate field
     editedBoard.columns = req.body.columns;
-    res.status(200).json(editedBoard);
     editedBoard.save();
-    // res.status(200).json(editedBoard);
+    res.status(200).json(editedBoard);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
 
-//Works
 const addTask = async (req, res) => {
   const id = req.params.id;
   const { title, status } = req.body;
@@ -78,7 +70,6 @@ const addTask = async (req, res) => {
   }
 };
 
-//Creates a new task, but the original task is not deleted.
 const editTask = async (req, res) => {
   const id = req.params.id;
 
@@ -155,7 +146,7 @@ const editSubtask = async (req, res) => {
         { _id: id },
         {
           $set: {
-            "columns.$[e1].tasks.$[e2].replies": [...req.body.replies],
+            "columns.$[e1].tasks.$[e2].subtasks": [...req.body.subtasks],
           },
         },
         {
@@ -190,7 +181,7 @@ const editSubtask = async (req, res) => {
           $push: {
             "columns.$.tasks": {
               ...req.body.task,
-              replies: [...req.body.replies],
+              subtasks: [...req.body.subtasks],
             },
           },
         },
