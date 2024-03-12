@@ -43,7 +43,7 @@ router.put("/tasks/edit/:id", editTask);
 // api/boards/tasks/delete/:id -- this is the board's id
 router.put("/tasks/delete/:id", deleteTask);
 
-// edit subtasks
+// edit subtask
 // api/boards/tasks/subtasks/:id --this is the board's id
 router.put("/tasks/subtasks/:id", editSubtask);
 
