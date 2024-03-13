@@ -16,9 +16,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
   <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
     <Provider store={store}>
-    <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
       <App mode="modal" redirectUrl="/app" />
-    </ClerkProvider>
     </Provider>
     </ClerkProvider>
   </React.StrictMode>
