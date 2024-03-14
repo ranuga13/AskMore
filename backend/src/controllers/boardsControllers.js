@@ -4,11 +4,9 @@ const getBoards = async (req, res) => {
   // const user_id = req.user._id;
 
   try {
-    // res.status(201).json({ message: "Received Boards" });
-    // const boards = await Board.find({ user_id });
-    const boards = await Board.find({  });
+    res.status(201).json({ message: "Received Boards" });
+    const boards = await Board.find({ user_id });
     res.status(200).json(boards);
-    
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
