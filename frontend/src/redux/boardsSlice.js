@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import data from "../data/data.json";
+import { useUser } from "@clerk/clerk-react";
 
 const boardsSlice = createSlice({
   name: "boards",

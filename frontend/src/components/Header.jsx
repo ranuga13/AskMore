@@ -79,16 +79,7 @@ function Header({ setBoardModalOpen, boardModalOpen }) {
         {/* Right Side */}
 
         <div className=" flex space-x-4 items-center md:space-x-6 ">
-        <div>
-      
-      {/* <SignedOut>
-        <SignInButton />
-      </SignedOut>
-      <SignedIn>
-     
-      </SignedIn> */}
-      <UserButton />
-      </div>
+        
           <button
             onClick={() => {
               setOpenAddEditTask((state) => !state);
@@ -105,6 +96,17 @@ function Header({ setBoardModalOpen, boardModalOpen }) {
           >
             +
           </button>
+          <div>
+          <SignedIn>
+        {/* Mount the UserButton component */}
+        <UserButton />
+      </SignedIn>
+      <SignedOut>
+        {/* Signed out users get sign in button */}
+        <SignInButton/>
+      </SignedOut>
+
+          </div>
           <img
             src={elipsis}
             alt="elipsis"
