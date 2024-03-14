@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+
 const cors = require("cors");
 const { connectToDatabase } = require("./config/db.js");
 const boardsRoutes = require("./routes/boards.js");
@@ -21,6 +22,7 @@ app.use("/api/boards", boardsRoutes);
 // app.get("/", (req, res) => {
 //   res.send("Hello, this is the root path!");
 // });
+
 
 connectToDatabase()
   .then(() => {

@@ -7,8 +7,12 @@ import store from './redux/store';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+  <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
     <Provider store={store}>
-      <App />
+
+      <App mode="modal" redirectUrl="/app" />
+
     </Provider>
+    </ClerkProvider>
   </React.StrictMode>
 )
