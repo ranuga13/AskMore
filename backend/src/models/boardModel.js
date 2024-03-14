@@ -35,6 +35,7 @@ const columnSchema = new mongoose.Schema({
 
 // Board schema
 const boardSchema = new mongoose.Schema({
+  
   name: {
     type: String,
     required: true,
