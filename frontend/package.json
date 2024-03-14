@@ -10,7 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@clerk/clerk-react": "^4.30.7",
     "@headlessui/react": "^1.7.18",
     "@reduxjs/toolkit": "^2.1.0",
     "axios": "^1.6.7",
