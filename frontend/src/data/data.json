@@ -110,9 +110,7 @@
                 }
               ]
             },
-            
-            
-            
+
             {
               "title": "How do friction and air resistance influence the motion of objects?",
               "description": "We know what we're planning to build for version one. Now we need to finalise the first pricing model we'll use. Keep iterating the subtasks until we have a coherent proposition.",
@@ -137,7 +135,6 @@
         {
           "name": "Maths",
           "tasks": [
-            
             {
               "title": "25 + 17 = ?",
               "description": "We need to define and refine our core product. Interviews will help us learn common pain points and help us define the strongest MVP.",
