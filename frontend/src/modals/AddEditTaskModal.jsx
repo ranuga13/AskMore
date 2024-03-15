@@ -128,7 +128,7 @@ function AddEditTaskModal({
             onChange={(e) => setTitle(e.target.value)}
             id="task-name-input"
             type="text"
-            className=" bg-transparent  px-4 py-2 outline-none focus:border-0 rounded-md text-sm  border-[0.5px] border-gray-600 focus:outline-[#635fc7] outline-1  ring-0  "
+            className=" bg-transparent  px-4 py-2 outline-none focus:border-0 rounded-md text-sm  border-[0.5px] border-gray-600 focus:outline-[#50ccc8] outline-1  ring-0  "
             placeholder=" e.g "
           />
         </div>
@@ -193,7 +193,7 @@ function AddEditTaskModal({
           <select
             value={status}
             onChange={onChangeStatus}
-            className=" select-status flex-grow px-4 py-2 rounded-md text-sm bg-transparent focus:border-0  border-[1px] border-gray-300 focus:outline-[#635fc7] outline-none"
+            className=" select-status flex-grow px-4 py-2 rounded-md text-sm bg-transparent focus:border-0  border-[1px] border-gray-300 focus:outline-[#50ccc8] outline-none"
           >
             {columns.map((column, index) => (
               <option key={index}>{column.name}</option>
@@ -206,7 +206,7 @@ function AddEditTaskModal({
                 onSubmit(type);
               }
             }}
-            className=" w-full items-center text-white bg-[#635fc7] py-2 rounded-full "
+            className=" w-full items-center text-white bg-[#50ccc8] py-2 rounded-full "
           >
             {type === "edit" ? "Save Edit" : "Create Task"}
           </button>
