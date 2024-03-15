@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import boardsSlice from "./redux/boardsSlice";
 import EmptyBoard from "./components/EmptyBoard";
 
+
 function App() {
   const dispatch = useDispatch()
 
