@@ -13,11 +13,11 @@
               "status": "Chemistry",
               "subtasks": [
                 {
-                  "title": "",
+                  "title": "subtask1",
                   "isCompleted": true
                 },
                 {
-                  "title": "",
+                  "title": "subtask2",
                   "isCompleted": false
                 },
                 {

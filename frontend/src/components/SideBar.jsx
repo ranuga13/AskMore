@@ -44,7 +44,7 @@ function SideBar({ setIsSideBarOpen, isSideBarOpen }) {
                 ALL BOARDS ({boards?.length})
               </h3>
 
-              <div className=" dropdown-board flex flex-col h-[70vh]  justify-between">
+              <div className=" dropdown-board flex flex-col h-[70vh]  justify-between overflow-y-auto">
                 <div>
                   {boards.map((board, index) => (
                     <div
