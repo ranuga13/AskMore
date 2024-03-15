@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 const cors = require("cors");
 const { connectToDatabase } = require("./config/db.js");
-const boardsRoutes = require("./routes/boards.js");
+const boardsRoutes = require("./routes/users.js");
 
 const app = express();
 
@@ -16,13 +16,12 @@ app.use(
 );
 
 // routes
-app.use("/api/boards", boardsRoutes);
+app.use("/api/users", boardsRoutes);
 
 // Define a simple route
 // app.get("/", (req, res) => {
 //   res.send("Hello, this is the root path!");
 // });
-
 
 connectToDatabase()
   .then(() => {
