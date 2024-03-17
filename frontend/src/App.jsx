@@ -1,49 +1,71 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./components/Header";
 import Center from "./components/Center";
 import { useDispatch, useSelector } from "react-redux";
 import boardsSlice from "./redux/boardsSlice";
 import EmptyBoard from "./components/EmptyBoard";
-
+import axios from "axios";
+import Loading from "./components/Loading";
 
 function App() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const { setInitialBoards } = boardsSlice.actions;
 
-  const boards = useSelector((state) => state.boards)
-  const activeBoard = boards.find(board => board.isActive)
+  const [loading, setLoading] = useState(true);
 
-  if (!activeBoard && boards.length > 0){
-    dispatch(boardsSlice.actions.setBoardActive({index : 0}))
+  const getInitialBoards = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:3000/api/users/boards/12"
+      );
+      dispatch(setInitialBoards(response.data));
+    } catch (error) {
+      console.error("Error fetching initial boards:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getInitialBoards();
+  }, []);
+
+  const boards = useSelector((state) => state.boards);
+  const activeBoard = boards.find((board) => board.isActive);
+
+  if (!activeBoard && boards.length > 0) {
+    dispatch(boardsSlice.actions.setBoardActive({ index: 0 }));
   }
-
 
   const [boardModalOpen, setBoardModalOpen] = useState(false);
 
   return (
-    <div
-    className=' overflow-hidden overflow-x-scroll'
-    >
+    <div className=" overflow-hidden overflow-x-scroll">
+      {loading ? (
+        <Loading /> // Use the Loading component
+      ) : (
         <>
-          {boards.length > 0 ?
-              <>
-
+          {boards.length > 0 ? (
+            <>
               {/* Header Section */}
-              <Header boardModalOpen={boardModalOpen}
-                      setBoardModalOpen={setBoardModalOpen}/>
+              <Header
+                boardModalOpen={boardModalOpen}
+                setBoardModalOpen={setBoardModalOpen}
+              />
 
               {/* Center Section */}
-              <Center boardModalOpen={boardModalOpen} 
-                      setBoardModalOpen={setBoardModalOpen} />
-
-              </>
-              :
-              <>
-                <EmptyBoard type='add'/>
-              </>
-
-          }
-
+              <Center
+                boardModalOpen={boardModalOpen}
+                setBoardModalOpen={setBoardModalOpen}
+              />
+            </>
+          ) : (
+            <>
+              <EmptyBoard type="add" />
+            </>
+          )}
         </>
+      )}
     </div>
   );
 }

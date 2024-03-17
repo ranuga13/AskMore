@@ -1,5 +1,6 @@
 const express = require("express");
 const {
+  createUser,
   getBoards,
   createBoard,
   deleteBoard,
@@ -8,20 +9,24 @@ const {
   editTask,
   deleteTask,
   editSubtask,
-} = require("../controllers/boardsControllers.js");
+} = require("../controllers/usersControllers.js");
 
 const router = express.Router();
 
 // protects the below routes unless the user has correct auth
 // router.use(requireAuth);
 
-// get boards
-// api/boards
-router.get("/", getBoards);
+// create user
+// api/users/createUser/:user_id
+router.post("/createUser/", createUser);
+
+// get users
+// api/users/boards/:user_id
+router.get("/boards/:user_id", getBoards);
 
 // create a board
-// api/boards/
-router.post("/", createBoard);
+// api/users/boards/:user_id
+router.post("/boards/:user_id", createBoard);
 
 // delete a board
 // api/boards/:id

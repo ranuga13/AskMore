@@ -1,11 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
-import data from "../data/data.json";
-import { useUser } from "@clerk/clerk-react";
+// import data from "../data/data.json";
 
 const boardsSlice = createSlice({
   name: "boards",
-  initialState: data.boards,
+  initialState: [],
   reducers: {
+    setInitialBoards: (state, action) => {
+      // Set the initial state with the fetched data
+      return action.payload;
+    },
     addBoard: (state, action) => {
       const isActive = state.length > 0 ? false : true;
       const payload = action.payload;

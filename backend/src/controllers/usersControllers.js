@@ -1,12 +1,27 @@
-const Board = require("../models/boardModel");
+const User = require("../models/userModel");
 
-const getBoards = async (req, res) => {
-  // const user_id = req.user._id;
+const createUser = async (req, res) => {
+  const { _id } = req.body;
 
   try {
-    res.status(201).json({ message: "Received Boards" });
-    const boards = await Board.find({ user_id });
-    res.status(200).json(boards);
+    const user = await User.create({ _id });
+    res.status(201).json(user);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+const getBoards = async (req, res) => {
+  const user_id = req.params.user_id;
+
+  try {
+    // res.status(201).json({ message: "Received Boards" });
+    const user = await User.findOne({ _id: user_id });
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    // const boards = user.boards;
+    res.status(200).json(user.boards);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -14,21 +29,28 @@ const getBoards = async (req, res) => {
 
 const createBoard = async (req, res) => {
   // const user_id = req.user._id;
+  const user_id = req.params.user_id;
 
   try {
     // const board = await Board.create({ ...req.body, user_id });
-    const board = await Board.create({ ...req.body });
-    res.status(200).json(board);
+    const user = await User.findOne({ _id: user_id });
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    user.boards.push(req.body);
+    await user.save();
+    res.status(200).json(user);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
 
 const deleteBoard = async (req, res) => {
+  const user_id = req.params.user_id;
   const id = req.params.id;
 
   try {
-    const deletedBoard = await Board.findByIdAndDelete(id);
+    const deletedBoard = await User.findByIdAndDelete(id);
     res.status(200).json(deletedBoard);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -39,7 +61,7 @@ const editBoard = async (req, res) => {
   const id = req.params.id;
 
   try {
-    let editedBoard = await Board.findById(id);
+    let editedBoard = await User.findById(id);
     editedBoard.name = req.body.name; // Update the appropriate field
     editedBoard.columns = req.body.columns;
     editedBoard.save();
@@ -54,7 +76,7 @@ const addTask = async (req, res) => {
   const { title, status } = req.body;
 
   try {
-    const addTaskToBoard = await Board.findOneAndUpdate(
+    const addTaskToBoard = await User.findOneAndUpdate(
       { _id: id, "columns.name": status },
       {
         $push: {
@@ -75,7 +97,7 @@ const editTask = async (req, res) => {
 
   if (req.body.status === req.body.originalStatus) {
     try {
-      let editedTask = await Board.findOneAndUpdate(
+      let editedTask = await User.findOneAndUpdate(
         { _id: id },
         {
           $set: { "columns.$[e1].tasks.$[e2]": req.body },
@@ -99,14 +121,14 @@ const editTask = async (req, res) => {
   if (req.body.status !== req.body.originalStatus) {
     try {
       // delete original task
-      const deletedTask = await Board.findOneAndUpdate(
+      const deletedTask = await User.findOneAndUpdate(
         { _id: id, "columns.name": req.body.originalStatus },
         { $pull: { "columns.$.tasks": { _id: req.body._id } } },
         { new: true }
       );
 
       // add edited task to new column
-      const addTaskToBoard = await Board.findOneAndUpdate(
+      const addTaskToBoard = await User.findOneAndUpdate(
         { _id: id, "columns.name": req.body.status },
         { $push: { "columns.$.tasks": { ...req.body } } },
         { new: true }
@@ -125,7 +147,7 @@ const deleteTask = async (req, res) => {
   const taskId = req.body.taskId;
 
   try {
-    const deletedTask = await Board.findOneAndUpdate(
+    const deletedTask = await User.findOneAndUpdate(
       { _id: id, "columns.name": colName },
       { $pull: { "columns.$.tasks": { _id: taskId } } },
       { new: true }
@@ -142,7 +164,7 @@ const editSubtask = async (req, res) => {
 
   if (req.body.status === req.body.originalStatus) {
     try {
-      let editedSubtask = await Board.findOneAndUpdate(
+      let editedSubtask = await User.findOneAndUpdate(
         { _id: id },
         {
           $set: {
@@ -168,14 +190,14 @@ const editSubtask = async (req, res) => {
   if (req.body.status !== req.body.originalStatus) {
     try {
       // delete original task
-      const deletedTask = await Board.findOneAndUpdate(
+      const deletedTask = await User.findOneAndUpdate(
         { _id: id, "columns.name": req.body.originalStatus },
         { $pull: { "columns.$.tasks": { _id: req.body._id } } },
         { new: true }
       );
 
       // add edited task to new column
-      const addTaskToBoard = await Board.findOneAndUpdate(
+      const addTaskToBoard = await User.findOneAndUpdate(
         { _id: id, "columns.name": req.body.status },
         {
           $push: {
@@ -197,6 +219,7 @@ const editSubtask = async (req, res) => {
 
 // Export all controllers
 module.exports = {
+  createUser,
   getBoards,
   createBoard,
   deleteBoard,
