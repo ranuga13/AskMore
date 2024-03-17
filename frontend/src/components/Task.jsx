@@ -53,7 +53,7 @@ function Task({ taskIndex, colIndex }) {
             className="mr-2 cursor-pointer"
           />
           <p className="font-bold text-xs tracking-tighter text-gray-500">
-            {isCompleted ? "Responded Question" : "Mark as Answered"}
+            {isCompleted ? "Responded" : "Mark as Responded"}
           </p>
         </label>
       </div>
