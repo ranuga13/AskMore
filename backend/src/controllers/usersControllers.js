@@ -12,13 +12,16 @@ const createUser = async (req, res) => {
 };
 
 const getBoards = async (req, res) => {
-  // const user_id = req.user._id;
   const user_id = req.params.user_id;
 
   try {
-    res.status(201).json({ message: "Received Boards" });
-    const boards = await User.find({ user_id });
-    res.status(200).json(boards);
+    // res.status(201).json({ message: "Received Boards" });
+    const user = await User.findOne({ _id: user_id });
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    // const boards = user.boards;
+    res.status(200).json(user.boards);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
