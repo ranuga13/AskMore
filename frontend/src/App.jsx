@@ -5,20 +5,24 @@ import { useDispatch, useSelector } from "react-redux";
 import boardsSlice from "./redux/boardsSlice";
 import EmptyBoard from "./components/EmptyBoard";
 import axios from "axios";
+import Loading from "./components/Loading";
 
 function App() {
   const dispatch = useDispatch();
   const { setInitialBoards } = boardsSlice.actions;
+
+  const [loading, setLoading] = useState(true);
 
   const getInitialBoards = async () => {
     try {
       const response = await axios.get(
         "http://localhost:3000/api/users/boards/12"
       );
-      // Dispatch the action with the fetched data
       dispatch(setInitialBoards(response.data));
     } catch (error) {
       console.error("Error fetching initial boards:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -37,27 +41,31 @@ function App() {
 
   return (
     <div className=" overflow-hidden overflow-x-scroll">
-      <>
-        {boards.length > 0 ? (
-          <>
-            {/* Header Section */}
-            <Header
-              boardModalOpen={boardModalOpen}
-              setBoardModalOpen={setBoardModalOpen}
-            />
+      {loading ? (
+        <Loading /> // Use the Loading component
+      ) : (
+        <>
+          {boards.length > 0 ? (
+            <>
+              {/* Header Section */}
+              <Header
+                boardModalOpen={boardModalOpen}
+                setBoardModalOpen={setBoardModalOpen}
+              />
 
-            {/* Center Section */}
-            <Center
-              boardModalOpen={boardModalOpen}
-              setBoardModalOpen={setBoardModalOpen}
-            />
-          </>
-        ) : (
-          <>
-            <EmptyBoard type="add" />
-          </>
-        )}
-      </>
+              {/* Center Section */}
+              <Center
+                boardModalOpen={boardModalOpen}
+                setBoardModalOpen={setBoardModalOpen}
+              />
+            </>
+          ) : (
+            <>
+              <EmptyBoard type="add" />
+            </>
+          )}
+        </>
+      )}
     </div>
   );
 }
