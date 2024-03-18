@@ -11,9 +11,16 @@ import ElipsisMenu from "./ElipsisMenu";
 import DeleteModal from "../modals/DeleteModal";
 import boardsSlice from "../redux/boardsSlice";
 import ShareModal from "../modals/ShareModal";
+import { deleteBoard } from "../redux/boardsSlice";
+import { selectActiveBoardId } from "../utils/selectors";
 
-import { useClerk } from '@clerk/clerk-react';
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
+import { useClerk } from "@clerk/clerk-react";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  UserButton,
+} from "@clerk/clerk-react";
 
 function Header({ setBoardModalOpen, boardModalOpen }) {
   const { user } = useClerk();
@@ -26,6 +33,10 @@ function Header({ setBoardModalOpen, boardModalOpen }) {
   const dispatch = useDispatch();
   const boards = useSelector((state) => state.boards);
   const board = boards.find((board) => board.isActive);
+
+  const user_id = "321";
+  // const board_id = "65f80713c9678f1357258751";
+  const activeBoardId = useSelector(selectActiveBoardId);
 
   const setOpenShareModal = () => {
     setIsShareModalOpen(true);
@@ -42,7 +53,8 @@ function Header({ setBoardModalOpen, boardModalOpen }) {
     setIsElipsisOpen(false);
   };
 
-  const onDeleteBtnClick = () => {
+  const onDeleteBtnClick = async () => {
+    await dispatch(deleteBoard({ user_id, board_id: activeBoardId }));
     dispatch(boardsSlice.actions.deleteBoard());
     dispatch(boardsSlice.actions.setBoardActive({ index: 0 }));
     setIsDeleteModalOpen(false);
@@ -79,7 +91,6 @@ function Header({ setBoardModalOpen, boardModalOpen }) {
         {/* Right Side */}
 
         <div className=" flex space-x-4 items-center md:space-x-6 ">
-        
           <button
             onClick={() => {
               setOpenAddEditTask((state) => !state);
@@ -97,15 +108,14 @@ function Header({ setBoardModalOpen, boardModalOpen }) {
             +
           </button>
           <div>
-          <SignedIn>
-        {/* Mount the UserButton component */}
-        <UserButton />
-      </SignedIn>
-      <SignedOut>
-        {/* Signed out users get sign in button */}
-        <SignInButton/>
-      </SignedOut>
-
+            <SignedIn>
+              {/* Mount the UserButton component */}
+              <UserButton />
+            </SignedIn>
+            <SignedOut>
+              {/* Signed out users get sign in button */}
+              <SignInButton />
+            </SignedOut>
           </div>
           <img
             src={elipsis}
