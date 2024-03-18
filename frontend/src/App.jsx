@@ -6,6 +6,7 @@ import boardsSlice from "./redux/boardsSlice";
 import EmptyBoard from "./components/EmptyBoard";
 import axios from "axios";
 import Loading from "./components/Loading";
+import { baseURL } from "./utils/baseURL";
 
 function App() {
   const dispatch = useDispatch();
@@ -15,9 +16,7 @@ function App() {
 
   const getInitialBoards = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:3000/api/users/boards/12"
-      );
+      const response = await axios.get(`${baseURL}/boards/321`);
       dispatch(setInitialBoards(response.data));
     } catch (error) {
       console.error("Error fetching initial boards:", error);
@@ -33,9 +32,11 @@ function App() {
   const boards = useSelector((state) => state.boards);
   const activeBoard = boards.find((board) => board.isActive);
 
-  if (!activeBoard && boards.length > 0) {
-    dispatch(boardsSlice.actions.setBoardActive({ index: 0 }));
-  }
+  useEffect(() => {
+    if (!activeBoard && boards.length > 0) {
+      dispatch(boardsSlice.actions.setBoardActive({ index: 0 }));
+    }
+  }, [activeBoard, boards, dispatch]);
 
   const [boardModalOpen, setBoardModalOpen] = useState(false);
 
