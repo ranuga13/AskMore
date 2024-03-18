@@ -4,6 +4,7 @@ import Center from "./components/Center";
 import { useDispatch, useSelector } from "react-redux";
 import boardsSlice from "./redux/boardsSlice";
 import EmptyBoard from "./components/EmptyBoard";
+import "./App.css";
 
 function App() {
   const dispatch = useDispatch()
@@ -20,7 +21,7 @@ function App() {
 
   return (
     <div
-    className=' overflow-hidden overflow-x-scroll'
+    className='app-container'
     >
         <>
           {boards.length > 0 ?
