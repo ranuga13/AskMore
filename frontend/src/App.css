@@ -1,0 +1,12 @@
+.app-container {
+    overflow: hidden; /*hide overflow */
+  }
+  
+  .app-container::-webkit-scrollbar {
+    display: none; /*hide scrollbar for webkit browsers */
+  }
+  
+  .app-container {
+    -ms-overflow-style: none; /*hide scrollbar for IE and Edge */
+    scrollbar-width: none; /*hide scrollbar for Firefox */
+  }
