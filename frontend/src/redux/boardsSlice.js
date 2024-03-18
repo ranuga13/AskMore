@@ -1,5 +1,59 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 // import data from "../data/data.json";
+import { baseURL } from "../utils/baseURL.js";
+
+export const createBoard = createAsyncThunk(
+  "boards/createBoard",
+  async (boardData) => {
+    // Send a POST request to the backend API to create a new board
+    const response = await axios.post(`${baseURL}/boards/321`, boardData);
+    console.log("Response from createBoard:", response.data);
+
+    // Return the newly created board data from the response
+    return response.data;
+  }
+);
+
+export const editBoard = createAsyncThunk(
+  "boards/editBoard",
+  async ({ user_id, board_id, boardData }) => {
+    try {
+      // Send a PUT request to update the board
+      const response = await axios.put(
+        `${baseURL}/boards/${user_id}/${board_id}`,
+        boardData
+      );
+      // console.log("Data:", boardData);
+      console.log("Response from editBoard:", response.data);
+
+      // Return the edited board data from the response
+      return response.data;
+    } catch (error) {
+      console.error("Error editing board:", error);
+      throw error;
+    }
+  }
+);
+
+export const deleteBoard = createAsyncThunk(
+  "boards/deleteBoard",
+  async ({ user_id, board_id }) => {
+    try {
+      // Send a DELETE request to delete the board
+      const response = await axios.delete(
+        `${baseURL}/boards/${user_id}/${board_id}`
+      );
+      console.log("Response from deleteBoard:", response.data);
+
+      // Return the deleted board data from the response
+      return response.data;
+    } catch (error) {
+      console.error("Error deleting board:", error);
+      throw error;
+    }
+  }
+);
 
 const boardsSlice = createSlice({
   name: "boards",
@@ -102,6 +156,15 @@ const boardsSlice = createSlice({
       col.tasks = col.tasks.filter((task, i) => i !== payload.taskIndex);
     },
   },
+  // extraReducers: (builder) => {
+  //   builder
+  //     .addCase(createBoard.fulfilled, (state, action) => {
+  //       state.push(action.payload);
+  //     })
+  //     .addCase(createBoard.rejected, (state, action) => {
+  //       console.log("Error creating board:", action.error.message);
+  //     });
+  // },
 });
 
 export default boardsSlice;

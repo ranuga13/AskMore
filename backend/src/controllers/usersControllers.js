@@ -30,6 +30,7 @@ const getBoards = async (req, res) => {
 const createBoard = async (req, res) => {
   // const user_id = req.user._id;
   const user_id = req.params.user_id;
+  // console.log("Incoming edit board request:", req.params);
 
   try {
     // const board = await Board.create({ ...req.body, user_id });
@@ -37,9 +38,15 @@ const createBoard = async (req, res) => {
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
-    user.boards.push(req.body);
+    // Destructure the board data from the request body
+    const { name, columns } = req.body;
+    // Create a new board object
+    const newBoard = { name, columns };
+    // Push the new board to the user's boards array
+    user.boards.push(newBoard);
+    // Save the updated user document
     await user.save();
-    res.status(200).json(user);
+    res.status(200).json(newBoard);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -47,10 +54,26 @@ const createBoard = async (req, res) => {
 
 const deleteBoard = async (req, res) => {
   const user_id = req.params.user_id;
-  const id = req.params.id;
+  const board_id = req.params.board_id;
 
   try {
-    const deletedBoard = await User.findByIdAndDelete(id);
+    const user = await User.findOne({ _id: user_id });
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Find the index of the board to be deleted
+    const boardIndex = user.boards.findIndex((board) => board._id == board_id);
+    if (boardIndex === -1) {
+      return res.status(404).json({ error: "Board not found" });
+    }
+
+    // Remove the board from the user's boards array
+    const deletedBoard = user.boards.splice(boardIndex, 1)[0];
+
+    // Save the updated user document
+    await user.save();
+
     res.status(200).json(deletedBoard);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -58,13 +81,28 @@ const deleteBoard = async (req, res) => {
 };
 
 const editBoard = async (req, res) => {
-  const id = req.params.id;
+  const user_id = req.params.user_id;
+  const board_id = req.params.board_id;
 
   try {
-    let editedBoard = await User.findById(id);
-    editedBoard.name = req.body.name; // Update the appropriate field
+    const user = await User.findOne({ _id: user_id });
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Find the board by its ID within the user's boards array
+    const editedBoard = user.boards.find((board) => board._id == board_id);
+    if (!editedBoard) {
+      return res.status(404).json({ error: "Board not found" });
+    }
+
+    // Update the board's name and columns
+    editedBoard.name = req.body.name;
     editedBoard.columns = req.body.columns;
-    editedBoard.save();
+
+    // Save the updated user document
+    await user.save();
+
     res.status(200).json(editedBoard);
   } catch (error) {
     res.status(400).json({ error: error.message });
