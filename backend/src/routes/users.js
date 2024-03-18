@@ -17,7 +17,7 @@ const router = express.Router();
 // router.use(requireAuth);
 
 // create user
-// api/users/createUser/:user_id
+// api/users/createUser/
 router.post("/createUser/", createUser);
 
 // get users
@@ -29,12 +29,12 @@ router.get("/boards/:user_id", getBoards);
 router.post("/boards/:user_id", createBoard);
 
 // delete a board
-// api/boards/:id
-router.delete("/:id", deleteBoard);
+// api/boards/:user_id/:board_id
+router.delete("/boards/:user_id/:board_id", deleteBoard);
 
 // edit a board
-// api/boards/:id
-router.put("/:id", editBoard);
+// api/users/boards/:user_is/:id
+router.put("/boards/:user_id/:board_id", editBoard);
 
 // add a new task
 // api/boards/tasks/add/:id  --this is the board's id
