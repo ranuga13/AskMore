@@ -1,5 +1,6 @@
 .app-container {
     overflow: hidden; /*hide overflow */
+    overflow: auto;
   }
   
   .app-container::-webkit-scrollbar {
