@@ -44,7 +44,7 @@ function SideBar({ setIsSideBarOpen, isSideBarOpen }) {
                 ALL BOARDS ({boards?.length})
               </h3>
 
-              <div className=" dropdown-board flex flex-col h-[65.8vh]  justify-between overflow-y-auto">
+              <div className=" dropdown-board flex flex-col h-[65vh]  justify-between overflow-y-auto">
                 <div>
                   {boards.map((board, index) => (
                     <div
@@ -80,7 +80,7 @@ function SideBar({ setIsSideBarOpen, isSideBarOpen }) {
           {isSideBarOpen ? (
             <div
               onClick={() => setIsSideBarOpen((state) => !state)}
-              className="flex  items-center mt-2  absolute bottom-24  text-lg font-bold  rounded-r-full hover:text-[#50ccc8] cursor-pointer mr-6 mb-8 px-6 py-4 hover:bg-[#635fc71a] dark:hover:bg-white  space-x-2 justify-center  my-4 text-gray-500 "
+              className="flex  items-center mt-2  absolute bottom-24  text-lg font-bold  rounded-r-full hover:text-[#50ccc8] cursor-pointer mr-6 mb-10 px-6 py-2 hover:bg-[#635fc71a] dark:hover:bg-white  space-x-2 justify-center  my-4 text-gray-500 "
             >
               <img
                 src={hideSidebarIcon}
@@ -99,7 +99,7 @@ function SideBar({ setIsSideBarOpen, isSideBarOpen }) {
           )}
 
           {isSideBarOpen && (
-            <div className="mx-2 p-2 top-14 relative space-x-2 bg-slate-100 dark:bg-[#20212c] flex justify-center items-center rounded-lg mb-4">
+            <div className="mx-2 p-4 top-14 relative space-x-2 bg-slate-100 dark:bg-[#20212c] flex justify-center items-center rounded-lg mb-4">
               <img src={lightIcon} alt="sun indicating light mode" />
 
               <Switch
