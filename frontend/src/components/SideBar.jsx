@@ -54,6 +54,7 @@ function SideBar({ setIsSideBarOpen, isSideBarOpen }) {
                       key={index}
                       onClick={() => {
                         dispatch(boardsSlice.actions.setBoardActive({ index }));
+                        // console.log("board", board._id);
                       }}
                     >
                       <img src={boardIcon} className="h-4" />

@@ -17,11 +17,13 @@ function DeleteModal({ type, title, onDeleteBtnClick, setIsDeleteModalOpen }) {
         <h3 className="font-bold text-red-500 text-xl">Delete this session?</h3>
         {type === "task" ? (
           <p className="text-gray-500 font-semibold tracking-wide text-sm pt-6">
-            Are you sure you want to delete "{title}" session? This action cannot be undone.
+            Are you sure you want to delete "{title}" session? This action
+            cannot be undone.
           </p>
         ) : (
           <p className="text-gray-500 dark:text-white font-semibold tracking-wide text-sm pt-6">
-            Are you sure you want to delete this session? This action will remove all content in this session and cannot be undone.
+            Are you sure you want to delete this session? This action will
+            remove all content in this session and cannot be undone.
           </p>
         )}
         <div className="flex w-full mt-4 items-center justify-center space-x-4">
