@@ -172,7 +172,7 @@ function TaskModal({colIndex , taskIndex , setIsTaskModalOpen}) {
       {
         isDeleteModalOpen && (
           <DeleteModal
-            setDeleteModalOpen={setDeleteModalOpen}
+            setIsDeleteModalOpen={setDeleteModalOpen}
             onDeleteBtnClick={onDeleteBtnClick}
             title={task.title}
             type='task'
