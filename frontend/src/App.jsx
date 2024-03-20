@@ -7,6 +7,7 @@ import EmptyBoard from "./components/EmptyBoard";
 import axios from "axios";
 import Loading from "./components/Loading";
 import { baseURL } from "./utils/baseURL";
+import "./App.css";
 
 function App() {
   const dispatch = useDispatch();
@@ -41,7 +42,7 @@ function App() {
   const [boardModalOpen, setBoardModalOpen] = useState(false);
 
   return (
-    <div className=" overflow-hidden overflow-x-scroll">
+    <div className=" app-container">
       {loading ? (
         <Loading /> // Use the Loading component
       ) : (

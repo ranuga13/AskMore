@@ -6,9 +6,8 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import { ClerkProvider } from "@clerk/clerk-react";
 
-const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
-// const PUBLISHABLE_KEY =
-//   "pk_test_YnVzeS1iZWRidWctNjcuY2xlcmsuYWNjb3VudHMuZGV2JA";
+//const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
+const PUBLISHABLE_KEY ="pk_test_YnVzeS1iZWRidWctNjcuY2xlcmsuYWNjb3VudHMuZGV2JA";
 
 if (!PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
