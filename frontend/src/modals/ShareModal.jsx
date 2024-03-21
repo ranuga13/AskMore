@@ -51,7 +51,7 @@ function ShareModal({ setIsShareModalOpen}) {
                     >
                         <button
                         onClick={handleCopy}
-                        className="w-full items-center text-white  dark:bg-[#2b2c37] dark:text-white
+                        className="w-full items-center text-white dark:text-white
                         hover:opacity-85 font-bold bg-[#50ccc8] dark:bg-[#50ccc8]
                         py-2 rounded-full"
                         >
