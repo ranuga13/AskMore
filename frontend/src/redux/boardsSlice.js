@@ -8,7 +8,7 @@ export const createBoard = createAsyncThunk(
   async (boardData) => {
     // Send a POST request to the backend API to create a new board
     const response = await axios.post(`${baseURL}/boards/321`, boardData);
-    console.log("Response from createBoard:", response.data);
+    // console.log("Response from createBoard:", response.data);
 
     // Return the newly created board data from the response
     return response.data;

@@ -44,13 +44,14 @@ function SideBar({ setIsSideBarOpen, isSideBarOpen }) {
                 ALL BOARDS ({boards?.length})
               </h3>
 
-              <div className=" dropdown-board flex flex-col h-[65vh]  justify-between overflow-y-auto">
+              <div className=" dropdown-board flex flex-col h-[70vh]  justify-between overflow-y-auto">
                 <div>
                   {boards.map((board, index) => (
                     <div
-                      className={` flex items-baseline space-x-2 px-5 mr-8 rounded-r-full duration-500 ease-in-out py-4 cursor-pointer hover:bg-[#635fc71a] hover:text-[#50ccc8] dark:hover:bg-white dark:hover:text-[#50ccc8] dark:text-white ${board.isActive &&
+                      className={` flex items-baseline space-x-2 px-5 mr-8 rounded-r-full duration-500 ease-in-out py-4 cursor-pointer hover:bg-[#635fc71a] hover:text-[#50ccc8] dark:hover:bg-white dark:hover:text-[#50ccc8] dark:text-white ${
+                        board.isActive &&
                         " bg-[#50ccc8] rounded-r-full text-white mr-8"
-                        }   `}
+                      }   `}
                       key={index}
                       onClick={() => {
                         dispatch(boardsSlice.actions.setBoardActive({ index }));
@@ -72,7 +73,6 @@ function SideBar({ setIsSideBarOpen, isSideBarOpen }) {
                     <p className="text-ig font-bold">Create New Board</p>
                   </div>
                 </div>
-
               </div>
             </div>
           )}
@@ -81,7 +81,7 @@ function SideBar({ setIsSideBarOpen, isSideBarOpen }) {
           {isSideBarOpen ? (
             <div
               onClick={() => setIsSideBarOpen((state) => !state)}
-              className="flex  items-center mt-2  absolute bottom-24  text-lg font-bold  rounded-r-full hover:text-[#50ccc8] cursor-pointer mr-6 mb-10 px-6 py-2 hover:bg-[#635fc71a] dark:hover:bg-white  space-x-2 justify-center  my-4 text-gray-500 "
+              className="flex  items-center mt-2  absolute bottom-24  text-lg font-bold  rounded-r-full hover:text-[#50ccc8] cursor-pointer mr-6 mb-0 px-6 py-4 hover:bg-[#635fc71a] dark:hover:bg-white  space-x-2 justify-center  my-4 text-gray-500 "
             >
               <img
                 src={hideSidebarIcon}
@@ -98,29 +98,6 @@ function SideBar({ setIsSideBarOpen, isSideBarOpen }) {
               <img src={showSidebarIcon} alt="showSidebarIcon" />
             </div>
           )}
-
-          {isSideBarOpen && (
-            <div className="mx-2 p-4 top-14 relative space-x-2 bg-slate-100 dark:bg-[#20212c] flex justify-center items-center rounded-lg mb-4">
-              <img src={lightIcon} alt="sun indicating light mode" />
-
-              <Switch
-                checked={darkSide}
-                onChange={toggleDarkMode}
-                className={`${darkSide ? "bg-[#50ccc8]" : "bg-gray-200"
-                  } relative inline-flex h-6 w-11 items-center rounded-full`}
-              >
-                <span className="sr-only">Enable notifications</span>
-                <span
-                  className={`${darkSide ? "translate-x-6" : "translate-x-1"
-                    } inline-block h-4 w-4 transform rounded-full bg-white transition`}
-                />
-              </Switch>
-
-              <img src={darkIcon} alt="moon indicating dark mode" />
-            </div>
-          )}
-
-
         </div>
       </div>
 
