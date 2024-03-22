@@ -12,18 +12,17 @@ function DeleteModal({ type, title, onDeleteBtnClick, setIsDeleteModalOpen }) {
         setIsDeleteModalOpen(false);
       }}
     >
+      
       {/* Delete Modal */}
       <div className="scrollbar-hide overflow-y-scroll max-w-md max-h-[95vh] my-auto bg-white dark:bg-[#2b2c37] text-black dark:text-white w-full px-8 py-8 rounded-xl">
-        <h3 className="font-bold text-red-500 text-xl">Delete this session?</h3>
+        <h3 className="font-bold text-red-500 text-xl">Delete this {type}?</h3>
         {type === "task" ? (
           <p className="text-gray-500 font-semibold tracking-wide text-sm pt-6">
-            Are you sure you want to delete "{title}" session? This action
-            cannot be undone.
+           Are you sure you want to delete the "{title}" question? This action cannot be reversed.
           </p>
         ) : (
           <p className="text-gray-500 dark:text-white font-semibold tracking-wide text-sm pt-6">
-            Are you sure you want to delete this session? This action will
-            remove all content in this session and cannot be undone.
+            Are you sure you want to delete the "{title}" board? This action will remove all columns and tasks and cannot be reversed.
           </p>
         )}
         <div className="flex w-full mt-4 items-center justify-center space-x-4">

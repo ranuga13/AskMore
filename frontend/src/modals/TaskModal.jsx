@@ -92,7 +92,7 @@ function TaskModal({ colIndex, taskIndex, setIsTaskModalOpen }) {
             <ElipsisMenu
               setOpenEditModal={setOpenEditModal}
               setOpenDeleteModal={setOpenDeleteModal}
-              type="Task"
+              type="task"
             />
           )}
         </div>
