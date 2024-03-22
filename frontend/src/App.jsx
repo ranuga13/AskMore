@@ -9,8 +9,6 @@ import Loading from "./components/Loading";
 import { baseURL } from "./utils/baseURL";
 import io from "socket.io-client";
 
-const socket = io.connect("http://localhost:3000");
-
 function App() {
   const dispatch = useDispatch();
   const { setInitialBoards } = boardsSlice.actions;
@@ -55,7 +53,7 @@ function App() {
   });
 
   return (
-    <div className=" overflow-hidden overflow-x-scroll">
+    <div className=" app-container">
       {loading ? (
         <Loading /> // Use the Loading component
       ) : (
