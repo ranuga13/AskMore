@@ -46,6 +46,18 @@ function SideBar({ setIsSideBarOpen, isSideBarOpen }) {
 
               <div className=" dropdown-board flex flex-col h-[70vh]  justify-between overflow-y-auto">
                 <div>
+                  {/* Rendering "Create New Board" option */}
+                  <div
+                    onClick={() => {
+                      setBoardModalOpen(true);
+                    }}
+                    className=" flex items-baseline space-x-2 mr-8 rounded-r-full duration-500 ease-in-out cursor-pointer text-[#50ccc8] px-5 py-4 hover:bg-[#635fc71a] hover:text[#50ccc8] dark:hover:bg-white"
+                  >
+                    <img src={boardIcon} className="h-4" />
+                    <p className="text-ig font-bold">Create New Board</p>
+                  </div>
+
+                  {/* Rendering existing boards */}
                   {boards.map((board, index) => (
                     <div
                       className={` flex items-baseline space-x-2 px-5 mr-8 rounded-r-full duration-500 ease-in-out py-4 cursor-pointer hover:bg-[#635fc71a] hover:text-[#50ccc8] dark:hover:bg-white dark:hover:text-[#50ccc8] dark:text-white ${
@@ -62,16 +74,6 @@ function SideBar({ setIsSideBarOpen, isSideBarOpen }) {
                       <p className="text-ig font-bold">{board.name}</p>
                     </div>
                   ))}
-
-                  <div
-                    onClick={() => {
-                      setBoardModalOpen(true);
-                    }}
-                    className=" flex items-baseline space-x-2 mr-8 rounded-r-full duration-500 ease-in-out cursor-pointer text-[#50ccc8] px-5 py-4 hover:bg-[#635fc71a] hover:text[#50ccc8] dark:hover:bg-white"
-                  >
-                    <img src={boardIcon} className="h-4" />
-                    <p className="text-ig font-bold">Create New Board</p>
-                  </div>
                 </div>
               </div>
             </div>
