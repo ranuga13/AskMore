@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Logo from "../assets/logo-mobile.svg";
 import iconDown from "../assets/icon-down.svg";
 import iconUp from "../assets/icon-up.svg";
@@ -18,12 +18,14 @@ import lightIcon from "../assets/icon-light-theme.svg";
 import { Switch } from "@headlessui/react";
 import useDarkMode from "../hooks/useDarkMode";
 import { useClerk } from "@clerk/clerk-react";
+
 import {
   SignedIn,
   SignedOut,
   SignInButton,
   UserButton,
 } from "@clerk/clerk-react";
+
 
 function Header({ setBoardModalOpen, boardModalOpen }) {
   const { user } = useClerk();
@@ -37,9 +39,27 @@ function Header({ setBoardModalOpen, boardModalOpen }) {
   const boards = useSelector((state) => state.boards);
   const board = boards.find((board) => board.isActive);
 
+
+  const ellipsisRef = useRef(null);
+
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (ellipsisRef.current && !ellipsisRef.current.contains(event.target)) {
+        setIsElipsisOpen(false);
+      }
+    };
+
+    document.body.addEventListener("click", handleOutsideClick);
+
+    return () => {
+      document.body.removeEventListener("click", handleOutsideClick);
+    };
+  }, []);
+
   const user_id = "321";
   // const board_id = "65f80713c9678f1357258751";
   const activeBoardId = useSelector(selectActiveBoardId);
+
 
   const setOpenShareModal = () => {
     setIsShareModalOpen(true);
@@ -155,6 +175,7 @@ function Header({ setBoardModalOpen, boardModalOpen }) {
             src={elipsis}
             alt="elipsis"
             className=" cursor-pointer h-6"
+            ref={ellipsisRef}
             onClick={() => {
               setBoardType("edit");
               setOpenDropdown(false);
