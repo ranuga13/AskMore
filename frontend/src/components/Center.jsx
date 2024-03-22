@@ -8,7 +8,8 @@ import SideBar from "./SideBar";
 function Center(boardModalOpen, setBoardModalOpen) {
   const boards = useSelector((state) => state.boards);
   const board = boards.find((board) => board.isActive === true);
-  const columns = board.columns;
+  // const columns = board.columns;
+  const columns = board?.columns || [];
   const [isBoardModalOpen, setIsBoardModalOpen] = useState(false);
   const [isSideBarOpen, setIsSideBarOpen] = useState(true);
 
