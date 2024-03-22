@@ -4,6 +4,9 @@ import { v4 as uuidv4 } from "uuid";
 import crossIcon from "../assets/icon-cross.svg";
 import { useDispatch } from "react-redux";
 import boardSlices from "../redux/boardsSlice";
+import { createBoard } from "../redux/boardsSlice";
+import { editBoard } from "../redux/boardsSlice";
+import { selectActiveBoardId } from "../utils/selectors";
 
 function AddEditBoardModal({ setBoardModalOpen, type }) {
   const [name, setName] = useState("");
@@ -13,6 +16,12 @@ function AddEditBoardModal({ setBoardModalOpen, type }) {
     (board) => board.isActive
   );
   const dispatch = useDispatch();
+
+  const activeBoardId = useSelector(selectActiveBoardId);
+  // console.log("activeBoardId", activeBoardId);
+
+  const user_id = "321";
+  // const board_id = "65f7e10a0ae87adbd65ecb66";
 
   const [newColumns, setNewColumns] = useState([
     { name: "Technical Questions", task: [], id: uuidv4() },
@@ -57,14 +66,39 @@ function AddEditBoardModal({ setBoardModalOpen, type }) {
     return true;
   };
 
-  const onSubmit = (type) => {
+  const onSubmit = async (type) => {
     setBoardModalOpen(false);
     if (type === "add") {
-      dispatch(boardSlices.actions.addBoard({ name, newColumns }));
+      try {
+        await dispatch(createBoard({ name, columns: newColumns }));
+        dispatch(boardSlices.actions.addBoard({ name, newColumns }));
+      } catch (error) {
+        console.error("Error creating board:", error);
+      }
     } else {
-      dispatch(boardSlices.actions.editBoard({ name, newColumns }));
+      try {
+        await dispatch(
+          editBoard({
+            user_id,
+            board_id: activeBoardId,
+            boardData: { name, columns: newColumns },
+          })
+        );
+        dispatch(boardSlices.actions.editBoard({ name, newColumns }));
+      } catch (error) {
+        console.error("Error editing board:", error);
+      }
     }
   };
+
+  // const onSubmit = (type) => {
+  //   setBoardModalOpen(false);
+  //   if (type === "add") {
+  //     dispatch(boardSlices.actions.addBoard({ name, newColumns }));
+  //   } else {
+  //     dispatch(boardSlices.actions.editBoard({ name, newColumns }));
+  //   }
+  // };
 
   return (
     <div
