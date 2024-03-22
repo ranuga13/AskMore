@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Logo from "../assets/logo-mobile.svg";
 import iconDown from "../assets/icon-down.svg";
 import iconUp from "../assets/icon-up.svg";
@@ -12,7 +12,7 @@ import DeleteModal from "../modals/DeleteModal";
 import boardsSlice from "../redux/boardsSlice";
 import ShareModal from "../modals/ShareModal";
 
-import { useClerk } from '@clerk/clerk-react';
+import { useClerk } from "@clerk/clerk-react";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
 
 function Header({ setBoardModalOpen, boardModalOpen }) {
@@ -26,6 +26,22 @@ function Header({ setBoardModalOpen, boardModalOpen }) {
   const dispatch = useDispatch();
   const boards = useSelector((state) => state.boards);
   const board = boards.find((board) => board.isActive);
+
+  const ellipsisRef = useRef(null);
+
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (ellipsisRef.current && !ellipsisRef.current.contains(event.target)) {
+        setIsElipsisOpen(false);
+      }
+    };
+
+    document.body.addEventListener("click", handleOutsideClick);
+
+    return () => {
+      document.body.removeEventListener("click", handleOutsideClick);
+    };
+  }, []);
 
   const setOpenShareModal = () => {
     setIsShareModalOpen(true);
@@ -79,7 +95,6 @@ function Header({ setBoardModalOpen, boardModalOpen }) {
         {/* Right Side */}
 
         <div className=" flex space-x-4 items-center md:space-x-6 ">
-        
           <button
             onClick={() => {
               setOpenAddEditTask((state) => !state);
@@ -97,20 +112,20 @@ function Header({ setBoardModalOpen, boardModalOpen }) {
             +
           </button>
           <div>
-          <SignedIn>
-        {/* Mount the UserButton component */}
-        <UserButton />
-      </SignedIn>
-      <SignedOut>
-        {/* Signed out users get sign in button */}
-        <SignInButton/>
-      </SignedOut>
-
+            <SignedIn>
+              {/* Mount the UserButton component */}
+              <UserButton />
+            </SignedIn>
+            <SignedOut>
+              {/* Signed out users get sign in button */}
+              <SignInButton />
+            </SignedOut>
           </div>
           <img
             src={elipsis}
             alt="elipsis"
             className=" cursor-pointer h-6"
+            ref={ellipsisRef}
             onClick={() => {
               setBoardType("edit");
               setOpenDropdown(false);
