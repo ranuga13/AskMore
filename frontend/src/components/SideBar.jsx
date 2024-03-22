@@ -56,7 +56,7 @@ function SideBar({ setIsSideBarOpen, isSideBarOpen }) {
                     <img src={boardIcon} className="h-4" />
                     <p className="text-ig font-bold">Create New Board</p>
                   </div>
-                  
+
                   {/* Rendering existing boards */}
                   {boards.map((board, index) => (
                     <div
@@ -74,26 +74,6 @@ function SideBar({ setIsSideBarOpen, isSideBarOpen }) {
                       <p className="text-ig font-bold">{board.name}</p>
                     </div>
                   ))}
-
-                </div>
-
-                <div className="mx-2 p-4 relative space-x-2 bg-slate-100 dark:bg-[#20212c] flex justify-center items-center rounded-lg mb-4">
-                  <img src={lightIcon} alt="sun indicating light mode" />
-                  <Switch
-                    checked={darkSide}
-                    onChange={toggleDarkMode}
-                    className={`${
-                      darkSide ? "bg-[#50ccc8]" : "bg-gray-200"
-                    } relative inline-flex h-6 w-11 items-center rounded-full`}
-                  >
-                    <span className="sr-only">Enable notifications</span>
-                    <span
-                      className={`${
-                        darkSide ? "translate-x-6" : "translate-x-1"
-                      } inline-block h-4 w-4 transform rounded-full bg-white transition`}
-                    />
-                  </Switch>
-                  <img src={darkIcon} alt="moon indicating dark mode" />
                 </div>
               </div>
             </div>
