@@ -66,6 +66,7 @@ function Header({ setBoardModalOpen, boardModalOpen }) {
     setBoardType("add");
   };
 
+  const boardName = board?.name || "Default Name";
   return (
     <div className=" p-4 fixed left-0 bg-white dark:bg-[#2b2c37] z-50 right-0 ">
       <header className=" flex justify-between dark:text-white items-center  ">
@@ -77,7 +78,8 @@ function Header({ setBoardModalOpen, boardModalOpen }) {
           </h3>
           <div className=" flex items-center ">
             <h3 className=" truncate max-w-[200px] md:text-2xl text-xl font-bold md:ml-20  ">
-              {board.name}
+              {/* {board.name} */}
+              {boardName}
             </h3>
             <img
               src={openDropdown ? iconUp : iconDown}

@@ -7,6 +7,9 @@ import EmptyBoard from "./components/EmptyBoard";
 import axios from "axios";
 import Loading from "./components/Loading";
 import { baseURL } from "./utils/baseURL";
+import io from "socket.io-client";
+
+const socket = io.connect("http://localhost:3000");
 
 function App() {
   const dispatch = useDispatch();
@@ -27,6 +30,7 @@ function App() {
 
   useEffect(() => {
     getInitialBoards();
+    console.log("Ran use effect");
   }, []);
 
   const boards = useSelector((state) => state.boards);
@@ -39,6 +43,16 @@ function App() {
   }, [activeBoard, boards, dispatch]);
 
   const [boardModalOpen, setBoardModalOpen] = useState(false);
+
+  // Socket.io connection (assuming setup elsewhere)
+  const socket = io("http://localhost:3000"); // Replace with your server URL
+
+  socket.on("change", (updatedData) => {
+    // console.log("Change event received from backend:", updatedData);
+    // Dispatch action to update Redux store with the entire updated data
+    dispatch(setInitialBoards(updatedData));
+    console.log("Updated Redux store with new data:", updatedData);
+  });
 
   return (
     <div className=" overflow-hidden overflow-x-scroll">
