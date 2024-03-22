@@ -28,7 +28,6 @@ function App() {
 
   useEffect(() => {
     getInitialBoards();
-    console.log("Ran use effect");
   }, []);
 
   const boards = useSelector((state) => state.boards);
