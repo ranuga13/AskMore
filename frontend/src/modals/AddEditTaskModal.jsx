@@ -116,12 +116,12 @@ function AddEditTaskModal({
        shadow-md shadow-[#364e7e1a] max-w-md mx-auto  w-full px-8  py-8 rounded-xl"
       >
         <h3 className=" text-lg ">
-          {type === "edit" ? "Edit" : "Add New"} Questions
+          {type === "edit" ? "Edit" : "Add New"} Question
         </h3>
 
         <div className="mt-8 flex flex-col space-y-1">
           <label className="  text-sm dark:text-white text-gray-500">
-            Questions
+            Question
           </label>
           <input
             value={title}
@@ -129,7 +129,7 @@ function AddEditTaskModal({
             id="task-name-input"
             type="text"
             className=" bg-transparent  px-4 py-2 outline-none focus:border-0 rounded-md text-sm  border-[0.5px] border-gray-600 focus:outline-[#50ccc8] outline-1  ring-0  "
-            placeholder=" e.g "
+            placeholder=" type your question... "
           />
         </div>
 
@@ -188,7 +188,7 @@ function AddEditTaskModal({
 
         <div className="mt-8 flex flex-col space-y-3">
           <label className="  text-sm dark:text-white text-gray-500">
-            Current Status
+            Current Category
           </label>
           <select
             value={status}
@@ -208,7 +208,7 @@ function AddEditTaskModal({
             }}
             className=" w-full items-center text-white bg-[#50ccc8] py-2 rounded-full "
           >
-            {type === "edit" ? "Save Edit" : "Create Task"}
+            {type === "edit" ? "Save Edit" : "Add Question"}
           </button>
         </div>
       </div>

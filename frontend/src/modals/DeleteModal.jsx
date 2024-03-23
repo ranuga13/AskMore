@@ -22,7 +22,7 @@ function DeleteModal({ type, title, onDeleteBtnClick, setIsDeleteModalOpen }) {
           </p>
         ) : (
           <p className="text-gray-500 dark:text-white font-semibold tracking-wide text-sm pt-6">
-            Are you sure you want to delete the "{title}" board? This action will remove all columns and tasks and cannot be reversed.
+            Are you sure you want to delete the "{title}" board? This action will remove all categories and questions and cannot be reversed.
           </p>
         )}
         <div className="flex w-full mt-4 items-center justify-center space-x-4">

@@ -35,7 +35,7 @@ function HeaderDropDown({ setOpenDropdown, setBoardModalOpen }) {
 
       <div className=" bg-white dark:bg-[#2b2c37] shadow-md shadow-[#364e7e1a]  w-full   py-4 rounded-xl overflow-y-auto max-h-[50vh]">
         <h3 className=" dark:text-gray-300 text-gray-600 font-semibold mx-4 mb-2 ">
-          ALL BOARDS ({boards?.length})
+          ALL SESSIONS ({boards?.length})
         </h3>
 
         <div className=" dropdown-board  ">
@@ -66,7 +66,7 @@ function HeaderDropDown({ setOpenDropdown, setBoardModalOpen }) {
             }}
           >
             <img src={boardIcon} className="   filter-white  h-4 " />
-            <p className=" text-lg font-bold  ">+ Create New Board </p>
+            <p className=" text-lg font-bold  ">+ Create New Session </p>
           </div>
         </div>
       </div>

@@ -113,13 +113,13 @@ function AddEditBoardModal({ setBoardModalOpen, type }) {
       {/* Modal Section */}
       <div className="scrollbar-hide overflow-y-scroll max-h-[95vh] bg-white dark:bg-[#2b2c37] text-black dark:text-white font-bold shadow-md shadow-[#364e7e1a] max-w-md mx-auto w-full px-8 py-6 rounded-xl">
         <h3 className="text-lg">
-          {type === "edit" ? "Edit" : "Add New"} Board
+          {type === "edit" ? "Edit" : "Add New"} Session
         </h3>
 
         {/* Task Name */}
         <div className="mt-8 flex flex-col space-y-3">
           <label className="text-sm dark:text-white text-gray-500">
-            Board Name
+            Session Name
           </label>
           <input
             className=" bg-transparent px-4 py-2 rounded-md text-sm border border-gray-600 outline-none focus:outline-[#50ccc8] outline-1 ring-0"
@@ -135,7 +135,7 @@ function AddEditBoardModal({ setBoardModalOpen, type }) {
         {/* Board Columns */}
         <div className="mt-8 flex flex-col space-y-3">
           <label className="text-sm dark:text-white text-gray-500">
-            Board Columns
+            Session Categories
           </label>
 
           {newColumns.map((column, index) => (
@@ -168,7 +168,7 @@ function AddEditBoardModal({ setBoardModalOpen, type }) {
               ]);
             }}
           >
-            + Add new category
+            + Add New Category
           </button>
 
           <button
@@ -180,7 +180,7 @@ function AddEditBoardModal({ setBoardModalOpen, type }) {
               }
             }}
           >
-            {type === "add" ? "Create New Board" : "Save Changes"}
+            {type === "add" ? "Create New Session" : "Save Changes"}
           </button>
         </div>
       </div>

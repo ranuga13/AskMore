@@ -41,7 +41,7 @@ function SideBar({ setIsSideBarOpen, isSideBarOpen }) {
           {isSideBarOpen && (
             <div className=" bg-white dark:bg-[#2b2c37] w-full py-4 rounded-xl ]">
               <h3 className=" dark:text-gray-300 text-gray-600 font-semibold mx-4 mb-6 ">
-                ALL BOARDS ({boards?.length})
+                ALL SESSIONS ({boards?.length})
               </h3>
 
               <div className=" dropdown-board flex flex-col h-[70vh]  justify-between overflow-y-auto">
@@ -54,7 +54,7 @@ function SideBar({ setIsSideBarOpen, isSideBarOpen }) {
                     className=" flex items-baseline space-x-2 mr-8 rounded-r-full duration-500 ease-in-out cursor-pointer text-[#50ccc8] px-5 py-4 hover:bg-[#635fc71a] hover:text[#50ccc8] dark:hover:bg-white"
                   >
                     <img src={boardIcon} className="h-4" />
-                    <p className="text-ig font-bold">Create New Board</p>
+                    <p className="text-ig font-bold">Create New Session</p>
                   </div>
 
                   {/* Rendering existing boards */}
