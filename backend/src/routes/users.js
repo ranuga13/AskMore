@@ -37,8 +37,8 @@ router.delete("/boards/:user_id/:board_id", deleteBoard);
 router.put("/boards/:user_id/:board_id", editBoard);
 
 // add a new task
-// api/boards/tasks/add/:id  --this is the board's id
-router.put("/tasks/add/:id", addTask);
+// api/users/tasks/add/:user_id/:board_id
+router.put("/tasks/add/:user_id/:board_id", addTask);
 
 // edit a task
 // api/boards/tasks/edit/:id  --this is the board's id

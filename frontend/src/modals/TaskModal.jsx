@@ -14,7 +14,8 @@ function TaskModal({ colIndex, taskIndex, setIsTaskModalOpen }) {
   const columns = board.columns;
   const col = columns.find((column, i) => colIndex === i);
   const task = col.tasks.find((col, i) => taskIndex === i);
-  const subtasks = task.subtasks;
+  // const subtasks = task.subtasks;
+  const subtasks = task.subtasks || [];
 
   let completed = 0;
   subtasks.forEach((subtask) => {
@@ -61,6 +62,7 @@ function TaskModal({ colIndex, taskIndex, setIsTaskModalOpen }) {
 
   const onDeleteBtnClick = () => {
     dispatch(boardsSlice.actions.deleteTask({ taskIndex, colIndex }));
+    console.log("taskIndex", taskIndex, "colIndex", colIndex);
     setIsTaskModalOpen(false);
     setDeleteModalOpen(false);
   };

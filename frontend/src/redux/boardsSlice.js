@@ -55,6 +55,26 @@ export const deleteBoard = createAsyncThunk(
   }
 );
 
+// Function to add a task
+export const addTask = createAsyncThunk(
+  "tasks/addTask",
+  async ({ user_id, board_id, boardData }) => {
+    try {
+      // Make a PUT request to add the task
+      const response = await axios.put(
+        `${baseURL}/tasks/add/${user_id}/${board_id}`,
+        boardData
+      );
+
+      // Return the added task data from the response
+      return response.data;
+    } catch (error) {
+      console.error("Error adding task:", error.response.data.error);
+      throw new Error(error.response.data.error);
+    }
+  }
+);
+
 const boardsSlice = createSlice({
   name: "boards",
   initialState: [],
