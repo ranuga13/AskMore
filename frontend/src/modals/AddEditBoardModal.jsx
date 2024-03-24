@@ -66,6 +66,10 @@ function AddEditBoardModal({ setBoardModalOpen, type }) {
     return true;
   };
 
+  // Get names of the columns as an array
+  const columnNames = newColumns.map((column) => column.name);
+  console.log(columnNames);
+
   const onSubmit = async (type) => {
     setBoardModalOpen(false);
     if (type === "add") {
