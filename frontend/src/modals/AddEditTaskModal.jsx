@@ -73,13 +73,16 @@ function AddEditTaskModal({
     setSubtasks((prevState) => prevState.filter((el) => el.id !== id));
   };
 
+  // Get names of the columns as an array
+  const columnNames = columns.map((column) => column.name);
+
   const onSubmit = async (type) => {
     if (type === "add") {
       await dispatch(
         addTask({
           user_id,
           board_id: activeBoardId,
-          boardData: { title, status },
+          boardData: { title, columnNames },
         })
       );
       dispatch(
@@ -92,6 +95,7 @@ function AddEditTaskModal({
         })
       );
       console.log("user_id", user_id, "activeBoardId", activeBoardId);
+      console.log("boardData", { title, columnNames });
       setOpenAddEditTask(false);
     } else {
       dispatch(

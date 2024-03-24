@@ -62,7 +62,7 @@ export const addTask = createAsyncThunk(
     try {
       // Make a PUT request to add the task
       const response = await axios.put(
-        `${baseURL}/tasks/add/${user_id}/${board_id}`,
+        `http://127.0.0.1:5000/api/${user_id}/${board_id}`,
         boardData
       );
 
@@ -70,6 +70,27 @@ export const addTask = createAsyncThunk(
       return response.data;
     } catch (error) {
       console.error("Error adding task:", error.response.data.error);
+      throw new Error(error.response.data.error);
+    }
+  }
+);
+
+// Function to delete a task
+export const deleteTask = createAsyncThunk(
+  "tasks/deleteTask",
+  async ({ user_id, board_id, boardData }) => {
+    try {
+      // Make a DELETE request to delete the task
+      const response = await axios.put(
+        `${baseURL}/tasks/delete/${user_id}/${board_id}`,
+        boardData
+      );
+
+      // Return the data from the response
+      return response.data;
+    } catch (error) {
+      // Handle errors
+      console.error("Error deleting task:", error.response.data.error);
       throw new Error(error.response.data.error);
     }
   }
