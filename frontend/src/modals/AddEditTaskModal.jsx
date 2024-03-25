@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import crossIcon from "../assets/icon-cross.svg";
 import boardsSlice from "../redux/boardsSlice";
+import { addTask } from "../redux/boardsSlice";
+import { selectActiveBoardId } from "../utils/selectors";
 
 function AddEditTaskModal({
   type,
@@ -20,6 +22,8 @@ function AddEditTaskModal({
   const board = useSelector((state) => state.boards).find(
     (board) => board.isActive
   );
+  const activeBoardId = useSelector(selectActiveBoardId);
+  const user_id = "321";
 
   const columns = board.columns;
   const col = columns.find((col, index) => index === prevColIndex);
@@ -69,8 +73,18 @@ function AddEditTaskModal({
     setSubtasks((prevState) => prevState.filter((el) => el.id !== id));
   };
 
-  const onSubmit = (type) => {
+  // Get names of the columns as an array
+  const columnNames = columns.map((column) => column.name);
+
+  const onSubmit = async (type) => {
     if (type === "add") {
+      await dispatch(
+        addTask({
+          user_id,
+          board_id: activeBoardId,
+          boardData: { title, columnNames },
+        })
+      );
       dispatch(
         boardsSlice.actions.addTask({
           title,
@@ -80,6 +94,8 @@ function AddEditTaskModal({
           newColIndex,
         })
       );
+      console.log("user_id", user_id, "activeBoardId", activeBoardId);
+      console.log("boardData", { title, columnNames });
       setOpenAddEditTask(false);
     } else {
       dispatch(

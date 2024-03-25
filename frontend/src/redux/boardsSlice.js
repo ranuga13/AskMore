@@ -55,6 +55,47 @@ export const deleteBoard = createAsyncThunk(
   }
 );
 
+// Function to add a task
+export const addTask = createAsyncThunk(
+  "tasks/addTask",
+  async ({ user_id, board_id, boardData }) => {
+    try {
+      // Make a PUT request to add the task
+      const response = await axios.put(
+        `http://127.0.0.1:5000/api/${user_id}/${board_id}`,
+        boardData
+      );
+
+      // Return the added task data from the response
+      return response.data;
+    } catch (error) {
+      console.error("Error adding task:", error.response.data.error);
+      throw new Error(error.response.data.error);
+    }
+  }
+);
+
+// Function to delete a task
+export const deleteTask = createAsyncThunk(
+  "tasks/deleteTask",
+  async ({ user_id, board_id, boardData }) => {
+    try {
+      // Make a DELETE request to delete the task
+      const response = await axios.put(
+        `${baseURL}/tasks/delete/${user_id}/${board_id}`,
+        boardData
+      );
+
+      // Return the data from the response
+      return response.data;
+    } catch (error) {
+      // Handle errors
+      console.error("Error deleting task:", error.response.data.error);
+      throw new Error(error.response.data.error);
+    }
+  }
+);
+
 const boardsSlice = createSlice({
   name: "boards",
   initialState: [],
