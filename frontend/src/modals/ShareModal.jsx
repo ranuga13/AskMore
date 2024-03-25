@@ -9,9 +9,9 @@ function ShareModal({ setIsShareModalOpen }) {
   const [copied, setCopied] = useState(false);
   const [_, copyToClipboard] = useCopyToClipboard();
   const activeBoardId = useSelector(selectActiveBoardId);
-  //   const { user } = useUser();
-  //   const user_id = user.id;
-  const user_id = "user_2da3cJPTyo2uhdBwGKXPmn7bXsu";
+  const { user } = useUser();
+  const user_id = user.id;
+  // const user_id = "user_2da3cJPTyo2uhdBwGKXPmn7bXsu";
 
   const handleCopy = () => {
     const url = `${window.location.href}/${user_id}/${activeBoardId}`;

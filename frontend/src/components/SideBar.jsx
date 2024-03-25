@@ -40,7 +40,7 @@ function SideBar({ setIsSideBarOpen, isSideBarOpen }) {
 
           {isSideBarOpen && (
             <div className=" bg-white dark:bg-[#2b2c37] w-full py-4 rounded-xl ]">
-              <h3 className=" dark:text-gray-300 text-gray-600 font-semibold mx-4 mb-6 ">
+              <h3 className=" dark:text-white text-gray-600 font-semibold mx-4 mb-6 ">
                 ALL BOARDS ({boards?.length})
               </h3>
 
@@ -83,7 +83,7 @@ function SideBar({ setIsSideBarOpen, isSideBarOpen }) {
           {isSideBarOpen ? (
             <div
               onClick={() => setIsSideBarOpen((state) => !state)}
-              className="flex  items-center mt-2  absolute bottom-24  text-lg font-bold  rounded-r-full hover:text-[#50ccc8] cursor-pointer mr-6 mb-0 px-6 py-4 hover:bg-[#635fc71a] dark:hover:bg-white  space-x-2 justify-center  my-4 text-gray-500 "
+              className="flex  items-center mt-2  absolute bottom-24  text-lg font-bold  rounded-r-full hover:text-[#50ccc8] dark:hover:text-[#50ccc8] cursor-pointer mr-6 mb-0 px-6 py-4 hover:bg-[#635fc71a] dark:hover:bg-white  space-x-2 justify-center  my-4 dark:text-white "
             >
               <img
                 src={hideSidebarIcon}
