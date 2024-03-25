@@ -42,11 +42,6 @@ connectToDatabase()
     const User = require("./models/userModel.js");
     const changeStream = User.watch();
 
-    // changeStream.on("change", (change) => {
-    //   console.log("Change detected:", change);
-    //   io.emit("change", change);
-    // });
-
     changeStream.on("change", async (change) => {
       console.log("Change detected:", change);
 
@@ -55,8 +50,10 @@ connectToDatabase()
 
         // Convert _id to string for comparison
         const userId = change.documentKey._id.toString();
-        if (userId === "321") {
-          console.log("Updated user with userid 321");
+        if (userId === "user_2da3cJPTyo2uhdBwGKXPmn7bXsu") {
+          console.log(
+            "Updated user with userid user_2da3cJPTyo2uhdBwGKXPmn7bXsu"
+          );
           try {
             // Fetch the updated user with userid 321 from the database
             const updatedUser = await User.findById(userId);

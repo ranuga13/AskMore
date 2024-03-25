@@ -7,6 +7,7 @@ const {
   addTask,
   editBoard,
   deleteTask,
+  getBoard,
 } = require("../controllers/usersControllers.js");
 
 const router = express.Router();
@@ -14,6 +15,10 @@ const router = express.Router();
 // create user
 // api/users/createUser/
 router.post("/createUser/", createUser);
+
+// get users
+// api/users/boards/:user_id
+router.get("/boards/:user_id/:board_id", getBoard);
 
 // get users
 // api/users/boards/:user_id
