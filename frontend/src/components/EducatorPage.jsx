@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import { useUser } from "@clerk/clerk-react";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { get } from "lodash";
+import io from "socket.io-client";
 
 function MainContent() {
   const { user } = useUser();
@@ -93,6 +94,17 @@ function MainContent() {
   }, [activeBoard, boards, dispatch]);
 
   const [boardModalOpen, setBoardModalOpen] = useState(false);
+
+  const socket = io("http://localhost:3000", {
+    query: {
+      user_id: userID || userId,
+    },
+  });
+
+  socket.on("change", (updatedData) => {
+    dispatch(setInitialBoards(updatedData));
+    console.log("Updated Redux store with new data:", updatedData);
+  });
 
   return (
     <div className="main-content">
