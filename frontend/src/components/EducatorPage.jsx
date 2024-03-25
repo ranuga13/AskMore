@@ -11,11 +11,14 @@ import axios from "axios";
 import { baseURL } from "../utils/baseURL";
 import { useEffect, useState } from "react";
 import { useUser } from "@clerk/clerk-react";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import { get } from "lodash";
 
 function MainContent() {
-  // const { user } = useUser();
+  const { user } = useUser();
+  const userID = user ? user.id : null;
   // const userID = user.id;
-  const userID = "user_2da3cJPTyo2uhdBwGKXPmn7bXsu";
+  // const userID = "user_2da3cJPTyo2uhdBwGKXPmn7bXsu";
 
   const { userId, boardId } = useParams();
   const dispatch = useDispatch();
@@ -23,12 +26,29 @@ function MainContent() {
 
   const [loading, setLoading] = useState(true);
 
+  const createUser = createAsyncThunk(
+    "boards/createUser",
+    async ({ userID }) => {
+      // Send a POST request to the backend API to create a new board for the specified user
+      const response = await axios.post(`${baseURL}/createUser/`, {
+        _id: userID,
+      });
+
+      // Return the newly created board data from the response
+      return response.data;
+    }
+  );
+
   const getInitialBoards = async () => {
     try {
+      // console.log("Fetching initial boards for userID:", userID);
       const response = await axios.get(`${baseURL}/boards/${userID}`);
+      // console.log("Initial boards response:", response.data);
       dispatch(setInitialBoards(response.data));
     } catch (error) {
       console.error("Error fetching initial boards:", error);
+      // Optionally, you can rethrow the error to propagate it to the caller
+      throw error;
     } finally {
       setLoading(false);
     }
@@ -46,6 +66,12 @@ function MainContent() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    dispatch(createUser({ userID }));
+    // console.log("UserID:", userID);
+    getInitialBoards();
+  }, [userID]);
 
   useEffect(() => {
     if (userId && boardId) {
