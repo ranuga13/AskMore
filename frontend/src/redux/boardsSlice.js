@@ -21,7 +21,7 @@ export const editBoard = createAsyncThunk(
     try {
       // Send a PUT request to update the board
       const response = await axios.put(
-        `${baseURL}/boards/${user_id}/${board_id}`,
+        `http://127.0.0.1:5000/api/${user_id}/${board_id}`,
         boardData
       );
       // console.log("Data:", boardData);
@@ -61,10 +61,8 @@ export const addTask = createAsyncThunk(
   async ({ user_id, board_id, boardData }) => {
     try {
       // Make a PUT request to add the task
-      const response = await axios.put(
-        `http://127.0.0.1:5000/api/${user_id}/${board_id}`,
-        boardData
-      );
+      const response = await axios.put(`http://127.0.0.1:5000/api/321/65ff326db89f7883c67027ab`,boardData);
+      console.log(`http://127.0.0.1:5000/api/${user_id}/${board_id}`);
 
       // Return the added task data from the response
       return response.data;

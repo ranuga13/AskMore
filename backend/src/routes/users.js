@@ -33,6 +33,8 @@ router.put("/boards/:user_id/:board_id", editBoard);
 
 // add a new task
 // api/users/tasks/add/:user_id/:board_id
+//router.put("/tasks/add/:id", addTask);
+
 router.put("/tasks/add/:user_id/:board_id", addTask);
 
 // delete a  task

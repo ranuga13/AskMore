@@ -67,11 +67,11 @@ function SideBar({ setIsSideBarOpen, isSideBarOpen }) {
                       key={index}
                       onClick={() => {
                         dispatch(boardsSlice.actions.setBoardActive({ index }));
-                        // console.log("board", board._id);
+                        // console.log("board", board._id," ",index);
                       }}
                     >
                       <img src={boardIcon} className="h-4" />
-                      <p className="text-ig font-bold">{board.name}</p>
+                      <p className=" truncate max-w-40 text-ig font-bold">{board.name}</p>
                     </div>
                   ))}
                 </div>

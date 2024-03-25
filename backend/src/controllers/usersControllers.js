@@ -110,6 +110,7 @@ const editBoard = async (req, res) => {
 };
 
 const addTask = async (req, res) => {
+  console.log("Sucessess")
   const user_id = req.params.user_id;
   const board_id = req.params.board_id;
   const { title, status } = req.body;

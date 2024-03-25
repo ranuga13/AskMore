@@ -11,13 +11,13 @@ function Task({ taskIndex, colIndex }) {
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
   const [isCompleted, setIsCompleted] = useState(task.isCompleted);
 
-  let completed = 0;
-  let subtasks = task.subtasks || [];
-  subtasks.forEach((subtask) => {
-    if (subtask.isCompleted) {
-      completed++;
-    }
-  });
+  // let completed = 0;
+  // let subtasks = task.subtasks|| || [];
+  // subtasks.forEach((subtask) => {
+  //   if (subtask.isCompleted) {
+  //     completed++;
+  //   }
+  // });
 
   const handleOnDrag = (e) => {
     e.dataTransfer.setData(

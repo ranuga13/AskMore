@@ -8,6 +8,8 @@ const { connectToDatabase } = require("./config/db.js");
 const boardsRoutes = require("./routes/users.js");
 // const User = require("./models/User.js");
 
+const { addTask } = require("../src/controllers/usersControllers.js");
+
 const app = express();
 
 app.use(express.json());
@@ -24,6 +26,8 @@ app.use(
 
 // routes
 app.use("/api/users", boardsRoutes);
+
+// app.post('/api/users/:user_id/:board_id"', addTask);
 
 io.on("connection", (socket) => {
   console.log(`A user connected with socket id ${socket.id}`);
@@ -77,3 +81,8 @@ connectToDatabase()
   .catch((error) => {
     console.error("Error starting the app:", error.message);
   });
+
+  
+
+  
+

@@ -4,10 +4,22 @@ import AddEditBoardModal from "../modals/AddEditBoardModal";
 import Column from "./Column";
 import EmptyBoard from "./EmptyBoard";
 import SideBar from "./SideBar";
+import { useClerk,useUser } from '@clerk/clerk-react';
+
+// import {useNavigate} from 'react-router-dom'
+import { useParams } from "react-router-dom"
+
 
 function Center(boardModalOpen, setBoardModalOpen) {
+  const { id,board_id } = useParams();
+
+  // const navigate = useNavigate()
+  // const { user } = useClerk();
+  
   const boards = useSelector((state) => state.boards);
-  const board = boards.find((board) => board.isActive === true);
+  const board = boards.find((board) => board.isActive == true);
+  console.log("text", board)
+  // navigate(`/${user.id}/${board._id}`)
   // const columns = board.columns;
   const columns = board?.columns || [];
   const [isBoardModalOpen, setIsBoardModalOpen] = useState(false);
@@ -30,20 +42,32 @@ function Center(boardModalOpen, setBoardModalOpen) {
     };
   });
 
+
+
   return (
     <div
       className={
-        windowSize[0] >= 768 && isSideBarOpen
-          ? " bg-[#f4f7fd]  scrollbar-hide h-screen flex dark:bg-[#20212c]  overflow-x-scroll gap-6  ml-[261px]"
+        windowSize[0] >= 768 & isSideBarOpen & useUser().isSignedIn
+          ? " bg-[#f4f7fd]  scrollbar-hide h-screen flex dark:bg-[#2d2d30]  overflow-x-scroll gap-6  ml-[261px]"
           : "bg-[#f4f7fd]  scrollbar-hide h-screen flex    dark:bg-[#20212c] overflow-x-scroll gap-6 "
       }
     >
-      {windowSize[0] >= 768 && (
+    
+   
+
+      {useUser().isSignedIn && (
+            <>
+            {windowSize[0] >= 768 && (
         <SideBar
           isSideBarOpen={isSideBarOpen}
           setIsSideBarOpen={setIsSideBarOpen}
         />
+        
+          )}
+          </>
       )}
+            
+      
 
       {/* columns section */}
       {columns.length > 0 ? (
@@ -51,6 +75,9 @@ function Center(boardModalOpen, setBoardModalOpen) {
           {columns.map((col, index) => (
             <Column key={index} colIndex={index} />
           ))}
+
+          {!useUser.isSignedIn && (
+            <>
           <div
             onClick={() => {
               setIsBoardModalOpen(true);
@@ -59,6 +86,8 @@ function Center(boardModalOpen, setBoardModalOpen) {
           >
             +New column
           </div>
+          </>
+      )}
         </>
       ) : (
         <>

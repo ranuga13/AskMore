@@ -6,8 +6,6 @@ import ElipsisMenu from "../components/ElipsisMenu";
 import boardsSlice from "../redux/boardsSlice";
 import DeleteModal from "../modals/DeleteModal";
 import AddEditTaskModal from "../modals/AddEditTaskModal";
-import { selectActiveBoardId } from "../utils/selectors";
-import { deleteTask } from "../redux/boardsSlice";
 
 function TaskModal({ colIndex, taskIndex, setIsTaskModalOpen }) {
   const dispatch = useDispatch();
@@ -16,11 +14,7 @@ function TaskModal({ colIndex, taskIndex, setIsTaskModalOpen }) {
   const columns = board.columns;
   const col = columns.find((column, i) => colIndex === i);
   const task = col.tasks.find((col, i) => taskIndex === i);
-  // const subtasks = task.subtasks;
-  const subtasks = task.subtasks || [];
-
-  const activeBoardId = useSelector(selectActiveBoardId);
-  const user_id = "321";
+  const subtasks = task.subtasks;
 
   let completed = 0;
   subtasks.forEach((subtask) => {
@@ -65,16 +59,8 @@ function TaskModal({ colIndex, taskIndex, setIsTaskModalOpen }) {
     setNewColIndex(e.target.selectedIndex);
   };
 
-  const onDeleteBtnClick = async () => {
+  const onDeleteBtnClick = () => {
     dispatch(boardsSlice.actions.deleteTask({ taskIndex, colIndex }));
-    await dispatch(
-      deleteTask({
-        user_id,
-        board_id: activeBoardId,
-        boardData: { taskIndex, colIndex },
-      })
-    );
-    console.log("taskIndex", taskIndex, "colIndex", colIndex);
     setIsTaskModalOpen(false);
     setDeleteModalOpen(false);
   };
@@ -106,7 +92,7 @@ function TaskModal({ colIndex, taskIndex, setIsTaskModalOpen }) {
             <ElipsisMenu
               setOpenEditModal={setOpenEditModal}
               setOpenDeleteModal={setOpenDeleteModal}
-              type="task"
+              type="Task"
             />
           )}
         </div>
@@ -157,7 +143,7 @@ function TaskModal({ colIndex, taskIndex, setIsTaskModalOpen }) {
 
       {isDeleteModalOpen && (
         <DeleteModal
-          setIsDeleteModalOpen={setDeleteModalOpen}
+          setDeleteModalOpen={setDeleteModalOpen}
           onDeleteBtnClick={onDeleteBtnClick}
           title={task.title}
           type="task"
