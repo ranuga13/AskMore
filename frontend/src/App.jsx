@@ -8,6 +8,7 @@ import EducatorPage from "./components/EducatorPage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import { useUser } from "@clerk/clerk-react";
+import LandingPage from "./components/landingpage/LandingPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/home" element={<LandingPage />} />
         <Route path="/" element={<Navigate to="/session" />} />
         <Route path="/session" element={<EducatorPage />} />
         <Route path="/session/:userId/:boardId" element={<EducatorPage />} />
