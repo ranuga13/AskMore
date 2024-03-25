@@ -7,6 +7,7 @@ import boardSlices from "../redux/boardsSlice";
 import { createBoard } from "../redux/boardsSlice";
 import { editBoard } from "../redux/boardsSlice";
 import { selectActiveBoardId } from "../utils/selectors";
+import { useUser } from "@clerk/clerk-react";
 
 function AddEditBoardModal({ setBoardModalOpen, type }) {
   const [name, setName] = useState("");
@@ -20,7 +21,10 @@ function AddEditBoardModal({ setBoardModalOpen, type }) {
   const activeBoardId = useSelector(selectActiveBoardId);
   // console.log("activeBoardId", activeBoardId);
 
-  const user_id = "321";
+  const user_id = "user_2da3cJPTyo2uhdBwGKXPmn7bXsu";
+  // const { user } = useUser();
+  // const user_id = user.id;
+
   // const board_id = "65f7e10a0ae87adbd65ecb66";
 
   const [newColumns, setNewColumns] = useState([
@@ -73,6 +77,7 @@ function AddEditBoardModal({ setBoardModalOpen, type }) {
   const onSubmit = async (type) => {
     setBoardModalOpen(false);
     if (type === "add") {
+      console.log("user_id", user_id);
       try {
         await dispatch(createBoard({ name, columns: newColumns }));
         dispatch(boardSlices.actions.addBoard({ name, newColumns }));
@@ -94,15 +99,6 @@ function AddEditBoardModal({ setBoardModalOpen, type }) {
       }
     }
   };
-
-  // const onSubmit = (type) => {
-  //   setBoardModalOpen(false);
-  //   if (type === "add") {
-  //     dispatch(boardSlices.actions.addBoard({ name, newColumns }));
-  //   } else {
-  //     dispatch(boardSlices.actions.editBoard({ name, newColumns }));
-  //   }
-  // };
 
   return (
     <div
