@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import TaskModal from "../modals/TaskModal.jsx";
+import { markTaskCompleted } from "../redux/boardsSlice";
+import { useDispatch } from "react-redux";
+import { selectActiveBoardId } from "../utils/selectors";
+import { useUser } from "@clerk/clerk-react";
 
 function Task({ taskIndex, colIndex }) {
+  const dispatch = useDispatch();
   const boards = useSelector((state) => state.boards);
   const board = boards.find((board) => board.isActive === true);
   const columns = board.columns;
@@ -10,6 +15,9 @@ function Task({ taskIndex, colIndex }) {
   const task = col.tasks.find((task, i) => i === taskIndex);
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
   const [isCompleted, setIsCompleted] = useState(task.isCompleted);
+  const activeBoardId = useSelector(selectActiveBoardId);
+  const { user } = useUser();
+  const user_id = user.id;
 
   let completed = 0;
   let subtasks = task.subtasks || [];
@@ -26,8 +34,36 @@ function Task({ taskIndex, colIndex }) {
     );
   };
 
-  const handleToggleCompleted = () => {
-    setIsCompleted(!isCompleted);
+  // const handleToggleCompleted = () => {
+  //   setIsCompleted(!isCompleted);
+  // };
+
+  const handleToggleCompleted = async () => {
+    const updatedCompleted = !isCompleted; // Toggle the completed status
+    setIsCompleted(updatedCompleted); // Update the local state
+
+    // Dispatch the async thunk to update the database
+    await dispatch(
+      markTaskCompleted({
+        user_id,
+        board_id: activeBoardId,
+        colIndex,
+        taskIndex,
+        isCompleted: updatedCompleted,
+      })
+    );
+    console.log(
+      "user_id",
+      user_id,
+      "boardId",
+      activeBoardId,
+      "colindex",
+      colIndex,
+      "taskIndex",
+      taskIndex,
+      "isCompleted",
+      updatedCompleted
+    );
   };
 
   return (
@@ -44,7 +80,7 @@ function Task({ taskIndex, colIndex }) {
           className={`font-bold tracking-wide ${
             isCompleted ? "line-through" : ""
           }`}
-          title="Click to see question details" // Added title attribute
+          title="Click to see question details"
         >
           {task.title}
         </p>
