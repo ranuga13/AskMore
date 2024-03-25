@@ -5,10 +5,10 @@ import { baseURL } from "../utils/baseURL.js";
 
 export const createBoard = createAsyncThunk(
   "boards/createBoard",
-  async (boardData) => {
+  async ({ user_id, boardData }) => {
     // Send a POST request to the backend API to create a new board
     const response = await axios.post(
-      `${baseURL}/boards/user_2da3cJPTyo2uhdBwGKXPmn7bXsu`,
+      `${baseURL}/boards/${user_id}`,
       boardData
     );
     // console.log("Response from createBoard:", response.data);
@@ -28,7 +28,7 @@ export const editBoard = createAsyncThunk(
         boardData
       );
       // console.log("Data:", boardData);
-      console.log("Response from editBoard:", response.data);
+      // console.log("Response from editBoard:", response.data);
 
       // Return the edited board data from the response
       return response.data;
@@ -65,7 +65,7 @@ export const addTask = createAsyncThunk(
     try {
       // Make a PUT request to add the task
       const response = await axios.put(
-        `${baseURL}/${user_id}/${board_id}`,
+        `${baseURL}/tasks/add/${user_id}/${board_id}`,
         boardData
       );
 

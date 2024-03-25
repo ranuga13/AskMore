@@ -26,7 +26,6 @@ import {
   UserButton,
 } from "@clerk/clerk-react";
 
-
 function Header({ setBoardModalOpen, boardModalOpen }) {
   const { user } = useClerk();
   const [openDropdown, setOpenDropdown] = useState(false);
@@ -38,7 +37,6 @@ function Header({ setBoardModalOpen, boardModalOpen }) {
   const dispatch = useDispatch();
   const boards = useSelector((state) => state.boards);
   const board = boards.find((board) => board.isActive);
-
 
   const ellipsisRef = useRef(null);
 
@@ -59,7 +57,6 @@ function Header({ setBoardModalOpen, boardModalOpen }) {
   const user_id = "321";
   // const board_id = "65f80713c9678f1357258751";
   const activeBoardId = useSelector(selectActiveBoardId);
-
 
   const setOpenShareModal = () => {
     setIsShareModalOpen(true);
@@ -148,7 +145,7 @@ function Header({ setBoardModalOpen, boardModalOpen }) {
               checked={darkSide}
               onChange={toggleDarkMode}
               className={`${
-                darkSide ? "bg-[#635fc7]" : "bg-gray-200"
+                darkSide ? "bg-[#50ccc8]" : "bg-[#50ccc8]"
               } relative inline-flex h-6 w-11 items-center rounded-full`}
             >
               <span className="sr-only">Enable notifications</span>

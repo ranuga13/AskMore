@@ -24,9 +24,9 @@ function AddEditTaskModal({
     (board) => board.isActive
   );
   const activeBoardId = useSelector(selectActiveBoardId);
-  // const { user } = useUser();
-  // const user_id = user.id;
-  const user_id = "user_2da3cJPTyo2uhdBwGKXPmn7bXsu";
+  const { user } = useUser();
+  const user_id = user.id;
+  // const user_id = "user_2da3cJPTyo2uhdBwGKXPmn7bXsu";
 
   const columns = board ? board.columns : [];
   const col = columns.find((col, index) => index === prevColIndex);
@@ -97,8 +97,8 @@ function AddEditTaskModal({
           newColIndex,
         })
       );
-      console.log("user_id", user_id, "activeBoardId", activeBoardId);
-      console.log("boardData", { title, columnNames });
+      // console.log("user_id", user_id, "activeBoardId", activeBoardId);
+      // console.log("boardData", { title, columnNames });
       setOpenAddEditTask(false);
     } else {
       dispatch(
