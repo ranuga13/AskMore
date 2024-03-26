@@ -6,6 +6,9 @@ import ElipsisMenu from "../components/ElipsisMenu";
 import boardsSlice from "../redux/boardsSlice";
 import DeleteModal from "../modals/DeleteModal";
 import AddEditTaskModal from "../modals/AddEditTaskModal";
+import { selectActiveBoardId } from "../utils/selectors";
+import { deleteTask } from "../redux/boardsSlice";
+import { useUser } from "@clerk/clerk-react";
 
 function TaskModal({ colIndex, taskIndex, setIsTaskModalOpen }) {
   const dispatch = useDispatch();
@@ -14,7 +17,12 @@ function TaskModal({ colIndex, taskIndex, setIsTaskModalOpen }) {
   const columns = board.columns;
   const col = columns.find((column, i) => colIndex === i);
   const task = col.tasks.find((col, i) => taskIndex === i);
-  const subtasks = task.subtasks;
+  // const subtasks = task.subtasks;
+  const subtasks = task.subtasks || [];
+
+  const activeBoardId = useSelector(selectActiveBoardId);
+  const { user } = useUser();
+  const user_id = user.id;
 
   let completed = 0;
   subtasks.forEach((subtask) => {
