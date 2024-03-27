@@ -18,7 +18,7 @@ function Center(boardModalOpen, setBoardModalOpen) {
   
   const boards = useSelector((state) => state.boards);
   const board = boards.find((board) => board.isActive == true);
-  console.log("text", board)
+  // console.log("text", board)
   // navigate(`/${user.id}/${board._id}`)
   // const columns = board.columns;
   const columns = board?.columns || [];
@@ -76,7 +76,7 @@ function Center(boardModalOpen, setBoardModalOpen) {
             <Column key={index} colIndex={index} />
           ))}
 
-          {!useUser.isSignedIn && (
+          {(useUser().isSignedIn) && (
             <>
           <div
             onClick={() => {

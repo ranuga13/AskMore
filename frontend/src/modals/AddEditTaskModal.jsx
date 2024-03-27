@@ -25,8 +25,8 @@ function AddEditTaskModal({
   );
   const activeBoardId = useSelector(selectActiveBoardId);
   const { user } = useUser();
-  const user_id = user.id;
-  // const user_id = "user_2da3cJPTyo2uhdBwGKXPmn7bXsu";
+  // const user_id = user.id;
+  const user_id = "user_2da3cJPTyo2uhdBwGKXPmn7bXsu";
 
   const columns = board ? board.columns : [];
   const col = columns.find((col, index) => index === prevColIndex);
@@ -90,15 +90,15 @@ function AddEditTaskModal({
           boardData: { title, status:columnNames },
         })
       );
-      // dispatch(
-      //   boardsSlice.actions.addTask({
-      //     title,
-      //     description,
-      //     subtasks,
-      //     status,
-      //     newColIndex,
-      //   })
-      // );
+      dispatch(
+        boardsSlice.actions.addTask({
+          title,
+          description,
+          subtasks,
+          status,
+          newColIndex,
+        })
+      );
       // console.log("user_id", user_id, "activeBoardId", activeBoardId);
       // console.log("boardData", { title, columnNames });
       setOpenAddEditTask(false);

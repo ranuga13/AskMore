@@ -124,7 +124,7 @@ function Header({ setBoardModalOpen, boardModalOpen }) {
         {/* Right Side */}
         
         <div className=" flex space-x-4 items-center md:space-x-6 ">
-        {(useUser().isSignedIn) && (
+        {!(useUser().isSignedIn) && (
             <>
               <button
                 onClick={() => {
@@ -167,14 +167,15 @@ function Header({ setBoardModalOpen, boardModalOpen }) {
         
          
           <div>
-            <SignedIn>
+            {/* <SignedIn> */}
               {/* Mount the UserButton component */}
-              <UserButton />
-            </SignedIn>
-            <SignedOut>
+              {useUser().isSignedIn &&(
+              <UserButton />)}
+            {/* </SignedIn> */}
+            {/* <SignedOut> */}
               {/* Signed out users get sign in button */}
-              <SignInButton />
-            </SignedOut>
+              {/* <SignInButton />
+            </SignedOut> */}
           </div>
           {useUser().isSignedIn && (
             <>
