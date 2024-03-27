@@ -1,13 +1,16 @@
 // ElipsisMenu.js
 import React from "react";
 
-function ElipsisMenu({ type, setOpenShareModal, setOpenEditModal, setOpenDeleteModal }) {
+function ElipsisMenu({
+  type,
+  setOpenShareModal,
+  setOpenEditModal,
+  setOpenDeleteModal,
+}) {
   return (
     <div
       className={
-        type === "Boards"
-          ? "absolute top-16 right-5"
-          : "absolute top-6 right-4"
+        type === "Boards" ? "absolute top-16 right-5" : "absolute top-6 right-4"
       }
     >
       <div className="flex justify-end items-center">
@@ -41,14 +44,6 @@ function ElipsisMenu({ type, setOpenShareModal, setOpenEditModal, setOpenDeleteM
             </>
           ) : (
             <>
-              <p
-                className="cursor-pointer dark:text-gray-400 text-gray-700"
-                onClick={() => {
-                  setOpenEditModal();
-                }}
-              >
-                Edit {type}
-              </p>
               <p
                 className="cursor-pointer text-red-500"
                 onClick={() => {
