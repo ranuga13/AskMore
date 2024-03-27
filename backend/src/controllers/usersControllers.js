@@ -223,6 +223,47 @@ const deleteTask = async (req, res) => {
   }
 };
 
+const markCompleted = async (req, res) => {
+  const { user_id, board_id } = req.params;
+  const { colIndex, taskIndex, isCompleted } = req.body;
+
+  try {
+    const user = await User.findById(user_id);
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const board = user.boards.find(
+      (board) => board._id.toString() === board_id
+    );
+
+    if (!board) {
+      return res.status(404).json({ error: "Board not found" });
+    }
+
+    const column = board.columns[colIndex];
+
+    if (!column) {
+      return res.status(404).json({ error: "Column not found" });
+    }
+
+    const task = column.tasks[taskIndex];
+
+    if (!task) {
+      return res.status(404).json({ error: "Task not found" });
+    }
+
+    task.isRead = isCompleted;
+
+    await user.save();
+
+    res.status(200).json(board);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
 // Export all controllers
 module.exports = {
   createUser,
@@ -233,4 +274,5 @@ module.exports = {
   addTask,
   deleteTask,
   getBoard,
+  markCompleted,
 };

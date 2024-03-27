@@ -6,7 +6,6 @@ const { Server } = require("socket.io");
 const cors = require("cors");
 const { connectToDatabase } = require("./config/db.js");
 const boardsRoutes = require("./routes/users.js");
-// const User = require("./models/User.js");
 
 const { addTask } = require("../src/controllers/usersControllers.js");
 
@@ -28,9 +27,12 @@ app.use(
 app.use("/api/users", boardsRoutes);
 
 // app.post('/api/users/:user_id/:board_id"', addTask);
+let connectedUserId;
 
 io.on("connection", (socket) => {
   console.log(`A user connected with socket id ${socket.id}`);
+  // const { user_id } = socket.handshake.query;
+  connectedUserId = socket.handshake.query.user_id;
 
   socket.on("disconnect", () => {
     console.log(`A user disconnected with socket id ${socket.id}`);
@@ -50,10 +52,8 @@ connectToDatabase()
 
         // Convert _id to string for comparison
         const userId = change.documentKey._id.toString();
-        if (userId === "user_2da3cJPTyo2uhdBwGKXPmn7bXsu") {
-          console.log(
-            "Updated user with userid user_2da3cJPTyo2uhdBwGKXPmn7bXsu"
-          );
+        if (userId === connectedUserId) {
+          // console.log("Updated user with userid", userId, connectedUserId);
           try {
             // Fetch the updated user with userid 321 from the database
             const updatedUser = await User.findById(userId);

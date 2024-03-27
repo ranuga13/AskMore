@@ -110,8 +110,21 @@ export const deleteTask = createAsyncThunk(
   }
 );
 
-
-
+export const markTaskCompleted = createAsyncThunk(
+  "tasks/markTaskCompleted",
+  async ({ user_id, board_id, colIndex, taskIndex, isCompleted }) => {
+    try {
+      const response = await axios.put(
+        `${baseURL}/tasks/complete/${user_id}/${board_id}`,
+        { colIndex, taskIndex, isCompleted }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error marking task as completed:", error);
+      throw error;
+    }
+  }
+);
 
 const boardsSlice = createSlice({
   name: "boards",
@@ -213,24 +226,15 @@ const boardsSlice = createSlice({
       const col = board.columns.find((col, i) => i === payload.colIndex);
       col.tasks = col.tasks.filter((task, i) => i !== payload.taskIndex);
     },
-    //03-26
-    updateTaskStatus: (state, action) => {
-      const { colIndex, taskIndex, isCompleted } = action.payload;
+    setTaskCompleted: (state, action) => {
+      const payload = action.payload;
       const board = state.find((board) => board.isActive);
-      const col = board.columns[colIndex];
-      const task = col.tasks[taskIndex];
-      task.isCompleted = isCompleted;
+      const col = board.columns.find((col, i) => i === payload.colIndex);
+      const task = col.tasks.find((task, i) => i === payload.taskIndex);
+      task.isCompleted = true;
+      return state;
     },
   },
-  // extraReducers: (builder) => {
-  //   builder
-  //     .addCase(createBoard.fulfilled, (state, action) => {
-  //       state.push(action.payload);
-  //     })
-  //     .addCase(createBoard.rejected, (state, action) => {
-  //       console.log("Error creating board:", action.error.message);
-  //     });
-  // },
 });
 
 export default boardsSlice;
