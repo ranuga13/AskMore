@@ -11,26 +11,26 @@ import { useUser } from "@clerk/clerk-react";
 import LandingPage from "./components/landingpage/LandingPage";
 
 function App() {
-  // const dispatch = useDispatch();
-  // const { setInitialBoards } = boardsSlice.actions;
-  // const { user } = useUser();
-  // const user_id = user?.id;
+  const dispatch = useDispatch();
+  const { setInitialBoards } = boardsSlice.actions;
+  const { user } = useUser();
+  const user_id = user?.id;
 
-  // // Socket.io connection (assuming setup elsewhere)
+  // Socket.io connection (assuming setup elsewhere)
   // const socket = io("http://localhost:3000");
 
   // useEffect(() => {}, [user_id]);
 
-  // const socket = io("http://localhost:3000", {
-  //   query: {
-  //     user_id: user_id,
-  //   },
-  // });
+  const socket = io("http://localhost:3000", {
+    query: {
+      user_id: user_id,
+    },
+  });
 
-  // socket.on("change", (updatedData) => {
-  //   dispatch(setInitialBoards(updatedData));
-  //   console.log("Updated Redux store with new data:", updatedData);
-  // });
+  socket.on("change", (updatedData) => {
+    dispatch(setInitialBoards(updatedData));
+    console.log("Updated Redux store with new data:", updatedData);
+  });
 
   return (
     <Router>

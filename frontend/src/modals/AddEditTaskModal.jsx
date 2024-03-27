@@ -25,8 +25,8 @@ function AddEditTaskModal({
   );
   const activeBoardId = useSelector(selectActiveBoardId);
   const { user } = useUser();
-  // const user_id = user.id;
-  const user_id = "user_2da3cJPTyo2uhdBwGKXPmn7bXsu";
+  const user_id = user.id;
+  // const user_id = "user_2da3cJPTyo2uhdBwGKXPmn7bXsu";
 
   const columns = board ? board.columns : [];
   const col = columns.find((col, index) => index === prevColIndex);
