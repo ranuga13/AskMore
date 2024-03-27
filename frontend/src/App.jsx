@@ -11,10 +11,10 @@ import { useUser } from "@clerk/clerk-react";
 import LandingPage from "./components/landingpage/LandingPage";
 
 function App() {
-  const dispatch = useDispatch();
-  const { setInitialBoards } = boardsSlice.actions;
-  const { user } = useUser();
-  const user_id = user?.id;
+  // const dispatch = useDispatch();
+  // const { setInitialBoards } = boardsSlice.actions;
+  // const { user } = useUser();
+  // const user_id = user?.id;
 
   // // Socket.io connection (assuming setup elsewhere)
   // const socket = io("http://localhost:3000");

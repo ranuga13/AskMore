@@ -224,15 +224,6 @@ const boardsSlice = createSlice({
       return state;
     },
   },
-  // extraReducers: (builder) => {
-  //   builder
-  //     .addCase(createBoard.fulfilled, (state, action) => {
-  //       state.push(action.payload);
-  //     })
-  //     .addCase(createBoard.rejected, (state, action) => {
-  //       console.log("Error creating board:", action.error.message);
-  //     });
-  // },
 });
 
 export default boardsSlice;
