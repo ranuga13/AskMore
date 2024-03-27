@@ -80,12 +80,14 @@ function AddEditTaskModal({
   const columnNames = columns.map((column) => column.name);
 
   const onSubmit = async (type) => {
+
+    
     if (type === "add") {
       await dispatch(
         addTask({
           user_id,
           board_id: activeBoardId,
-          boardData: { title, status },
+          boardData: { title, status:columnNames },
         })
       );
       dispatch(
@@ -93,10 +95,11 @@ function AddEditTaskModal({
           title,
           description,
           subtasks,
-          status,
+          // status,
           newColIndex,
         })
       );
+      
       // console.log("user_id", user_id, "activeBoardId", activeBoardId);
       // console.log("boardData", { title, columnNames });
       setOpenAddEditTask(false);
@@ -206,7 +209,7 @@ function AddEditTaskModal({
         </div> */}
 
         <div className="mt-8 flex flex-col space-y-3">
-          <label className="  text-sm dark:text-white text-gray-500">
+          {/* <label className="  text-sm dark:text-white text-gray-500">
             Current Status
           </label>
           <select
@@ -217,7 +220,7 @@ function AddEditTaskModal({
             {columns.map((column, index) => (
               <option key={index}>{column.name}</option>
             ))}
-          </select>
+          </select> */}
           <button
             onClick={() => {
               const isValid = validate();

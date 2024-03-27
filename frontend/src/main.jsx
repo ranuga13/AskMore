@@ -31,14 +31,15 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Provider store={store}>
       {/* <RouterProvider router={router}/> */}
         
-      <BrowserRouter>
+      {/* <BrowserRouter> */}
       {/* <ClerkLoaded> */}
-      <Routes>
-      <Route path="/" element={<App />} />
-      <Route path="/:id/:board_id" element={<App />} />
-      </Routes>
+      {/* <Routes> */}
+      <App />
+      {/* <Route path="/" element={<App />} />
+      <Route path="/:id/:board_id" element={<App />} /> */}
+      {/* </Routes> */}
       {/* </ClerkLoaded> */}
-      </BrowserRouter>
+      {/* </BrowserRouter> */}
       </Provider>
     </ClerkProvider>
     {/* </BrowserRouter> */}

@@ -2,7 +2,7 @@ import nltk
 nltk.download('punkt')
 
 import numpy as np
-from flask import Flask, request, render_template,jsonify,flash, request
+from flask import Flask, request, render_template,jsonify,flash
 import pickle
 import numpy as np
 import joblib
@@ -10,6 +10,8 @@ import spacy
 import nltk
 from pymongo import MongoClient
 import requests
+from flask_cors import CORS
+import logging
 
 from transformers import pipeline
 classifier = pipeline("zero-shot-classification", model="facebook/bart-large-mnli")
@@ -22,6 +24,7 @@ loaded_stopwords = joblib.load('stopwords.pkl')
 
 
 app = Flask(__name__)
+CORS(app)
 # template_folder='/content/drive/MyDrive/deploy-ML-model-with-webapp-master/templates'
 
 # MongoDB connection URI
@@ -60,9 +63,11 @@ def getprediction(id, board_id):
     try:
         # Get JSON data from the request
         data = request.get_json()
-        input_text = data["boardData"]["title"]
-        candidate_labels = data["boardData"]["columnNames"]
-
+        app.logger.info(data)
+        input_text = data["title"]
+        app.logger.info(input_text)
+        candidate_labels = data["status"]
+        # app.logger.info(candidate_labels)
         # Make predictions using the function (replace predict_class with your actual function)
         prediction = predict_class(input_text, loaded_model)
 
@@ -70,6 +75,7 @@ def getprediction(id, board_id):
         label = 'Inappropriate' if prediction == 1 else 'Appropriate'
 
         if prediction == 0:
+            
             zero_shot_prediction = classifier(input_text, candidate_labels)
             most_relevant_category = zero_shot_prediction['labels'][0]
 
@@ -88,10 +94,14 @@ def getprediction(id, board_id):
             # Return the response from Express.js to the client
             return jsonify(response.json())
             #return express_data
-
-        return jsonify({"message": "Data not received and sent to Express.js"})
+        else:
+            #return "Deteced As Spammy Question"
+            return jsonify({"message": "Data not received and sent to Express.js"})
     except Exception as e:
         return jsonify({"error": str(e)})
+        # spam_msg:{" Deteced As Spammy Question !!!"}
+        # response = requests.get('http://127.0.0.1:5000/api/${user_id}/${board_id}', json={spam_msg})
+        # return spam_msg
 
 if __name__ == "__main__":
     app.run(debug=True)

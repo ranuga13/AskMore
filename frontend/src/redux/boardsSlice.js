@@ -3,6 +3,7 @@ import axios from "axios";
 // import data from "../data/data.json";
 import { baseURL } from "../utils/baseURL.js";
 
+
 export const createBoard = createAsyncThunk(
   "boards/createBoard",
   async ({ user_id, boardData }) => {
@@ -18,13 +19,15 @@ export const createBoard = createAsyncThunk(
   }
 );
 
+
+
 export const editBoard = createAsyncThunk(
   "boards/editBoard",
   async ({ user_id, board_id, boardData }) => {
     try {
       // Send a PUT request to update the board
       const response = await axios.put(
-        `http://127.0.0.1:5000/api/${user_id}/${board_id}`,
+        `${baseURL}/boards/${user_id}/${board_id}`,
         boardData
       );
       // console.log("Data:", boardData);
@@ -64,19 +67,27 @@ export const addTask = createAsyncThunk(
   async ({ user_id, board_id, boardData }) => {
     try {
       // Make a PUT request to add the task
+      console.log(user_id," / ",board_id," / ",boardData);
       const response = await axios.put(
-        `${baseURL}/tasks/add/${user_id}/${board_id}`,
+        `http://127.0.0.1:5000/api/${user_id}/${board_id}`,
         boardData
       );
 
+      // Check if the response contains the alert message
+      if (response.data.message === "Data not received and sent to Express.js") {
+        alert("Spammy Content Deleted!!");
+        
+      }
+
       // Return the added task data from the response
-      return response.data;
+      // return response.data;
     } catch (error) {
       console.error("Error adding task:", error.response.data.error);
       throw new Error(error.response.data.error);
     }
   }
 );
+
 
 // Function to delete a task
 export const deleteTask = createAsyncThunk(
@@ -99,6 +110,9 @@ export const deleteTask = createAsyncThunk(
   }
 );
 
+
+
+
 const boardsSlice = createSlice({
   name: "boards",
   initialState: [],
@@ -116,7 +130,7 @@ const boardsSlice = createSlice({
         columns: [],
       };
       board.columns = payload.newColumns;
-      state.push(board);
+      // state.push(board);
     },
     editBoard: (state, action) => {
       const payload = action.payload;
@@ -198,6 +212,14 @@ const boardsSlice = createSlice({
       const board = state.find((board) => board.isActive);
       const col = board.columns.find((col, i) => i === payload.colIndex);
       col.tasks = col.tasks.filter((task, i) => i !== payload.taskIndex);
+    },
+    //03-26
+    updateTaskStatus: (state, action) => {
+      const { colIndex, taskIndex, isCompleted } = action.payload;
+      const board = state.find((board) => board.isActive);
+      const col = board.columns[colIndex];
+      const task = col.tasks[taskIndex];
+      task.isCompleted = isCompleted;
     },
   },
   // extraReducers: (builder) => {
