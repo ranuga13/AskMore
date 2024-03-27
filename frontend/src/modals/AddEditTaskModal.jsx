@@ -90,15 +90,15 @@ function AddEditTaskModal({
           boardData: { title, status:columnNames },
         })
       );
-      dispatch(
-        boardsSlice.actions.addTask({
-          title,
-          description,
-          subtasks,
-          // status,
-          newColIndex,
-        })
-      );
+      // dispatch(
+      //   boardsSlice.actions.addTask({
+      //     title,
+      //     description,
+      //     subtasks,
+      //     // status,
+      //     newColIndex,
+      //   })
+      // );
       
       // console.log("user_id", user_id, "activeBoardId", activeBoardId);
       // console.log("boardData", { title, columnNames });
