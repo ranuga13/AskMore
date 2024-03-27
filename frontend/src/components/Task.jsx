@@ -17,7 +17,7 @@ function Task({ taskIndex, colIndex }) {
   const [isCompleted, setIsCompleted] = useState(task.isCompleted);
   const activeBoardId = useSelector(selectActiveBoardId);
   const { user } = useUser();
-  const user_id = user.id;
+  const user_id = user?.id;
 
   let completed = 0;
   let subtasks = task.subtasks || [];
