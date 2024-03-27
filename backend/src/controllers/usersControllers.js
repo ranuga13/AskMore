@@ -4,8 +4,17 @@ const createUser = async (req, res) => {
   const { _id } = req.body;
 
   try {
-    const user = await User.create({ _id });
-    res.status(201).json(user);
+    // Check if a user with the given ID already exists
+    let user = await User.findOne({ _id });
+
+    // If a user with the given ID doesn't exist, create a new user
+    if (!user) {
+      user = await User.create({ _id });
+      res.status(201).json(user);
+    } else {
+      // If a user with the given ID exists, respond with the existing user data
+      res.status(200).json(user);
+    }
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -22,6 +31,28 @@ const getBoards = async (req, res) => {
     }
     // const boards = user.boards;
     res.status(200).json(user.boards);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+const getBoard = async (req, res) => {
+  const user_id = req.params.user_id;
+  const board_id = req.params.board_id;
+
+  try {
+    const user = await User.findOne({ _id: user_id });
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const board = user.boards.id(board_id);
+
+    if (!board) {
+      return res.status(404).json({ error: "Board not found" });
+    }
+
+    res.status(200).json([board]);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -200,4 +231,5 @@ module.exports = {
   editBoard,
   addTask,
   deleteTask,
+  getBoard,
 };

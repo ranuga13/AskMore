@@ -5,6 +5,7 @@ import crossIcon from "../assets/icon-cross.svg";
 import boardsSlice from "../redux/boardsSlice";
 import { addTask } from "../redux/boardsSlice";
 import { selectActiveBoardId } from "../utils/selectors";
+import { useUser } from "@clerk/clerk-react";
 
 function AddEditTaskModal({
   type,
@@ -23,9 +24,11 @@ function AddEditTaskModal({
     (board) => board.isActive
   );
   const activeBoardId = useSelector(selectActiveBoardId);
-  const user_id = "321";
+  // const { user } = useUser();
+  // const user_id = user.id;
+  const user_id = "user_2da3cJPTyo2uhdBwGKXPmn7bXsu";
 
-  const columns = board.columns;
+  const columns = board ? board.columns : [];
   const col = columns.find((col, index) => index === prevColIndex);
   const task = col ? col.tasks.find((task, index) => index === taskIndex) : [];
   const [status, setStatus] = useState(columns[prevColIndex].name);
@@ -82,7 +85,7 @@ function AddEditTaskModal({
         addTask({
           user_id,
           board_id: activeBoardId,
-          boardData: { title, columnNames },
+          boardData: { title, status },
         })
       );
       dispatch(
