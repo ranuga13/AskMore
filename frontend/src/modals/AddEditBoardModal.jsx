@@ -19,9 +19,8 @@ function AddEditBoardModal({ setBoardModalOpen, type }) {
   const dispatch = useDispatch();
 
   const activeBoardId = useSelector(selectActiveBoardId);
-  // console.log("activeBoardId", activeBoardId);
+  
 
-  // const user_id = "user_2da3cJPTyo2uhdBwGKXPmn7bXsu";
   const { user } = useUser();
   const user_id = user.id;
 
