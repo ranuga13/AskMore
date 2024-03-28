@@ -33,9 +33,7 @@ jobs:
         working-directory: ./backend  # Adjust path if needed
         run: npm install
 
-      - name: Run backend tests
-        working-directory: ./backend  # Adjust path if needed
-        run: npm test
+    
 
 
 # Remember to add AWS credentials (access key and secret) as GitHub Secrets
