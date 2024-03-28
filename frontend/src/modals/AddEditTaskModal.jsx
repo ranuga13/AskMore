@@ -24,9 +24,9 @@ function AddEditTaskModal({
     (board) => board.isActive
   );
   const activeBoardId = useSelector(selectActiveBoardId);
-  // const { user } = useUser();
-  // const user_id = user.id;
-  const user_id = "user_2da3cJPTyo2uhdBwGKXPmn7bXsu";
+  const { user } = useUser();
+  const user_id = user.id;
+  // const user_id = "user_2da3cJPTyo2uhdBwGKXPmn7bXsu";
 
   const columns = board ? board.columns : [];
   const col = columns.find((col, index) => index === prevColIndex);
@@ -88,17 +88,17 @@ function AddEditTaskModal({
           boardData: { title, status },
         })
       );
-      dispatch(
-        boardsSlice.actions.addTask({
-          title,
-          description,
-          subtasks,
-          status,
-          newColIndex,
-        })
-      );
-      console.log("user_id", user_id, "activeBoardId", activeBoardId);
-      console.log("boardData", { title, columnNames });
+      // dispatch(
+      //   boardsSlice.actions.addTask({
+      //     title,
+      //     description,
+      //     subtasks,
+      //     status,
+      //     newColIndex,
+      //   })
+      // );
+      // console.log("user_id", user_id, "activeBoardId", activeBoardId);
+      // console.log("boardData", { title, columnNames });
       setOpenAddEditTask(false);
     } else {
       dispatch(
@@ -151,59 +151,6 @@ function AddEditTaskModal({
             placeholder=" type your question... "
           />
         </div>
-
-        {/* <div className="mt-8 flex flex-col space-y-1">
-          <label className="  text-sm dark:text-white text-gray-500">
-            Description
-          </label>
-          <textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            id="task-description-input"
-            className=" bg-transparent outline-none min-h-[200px] focus:border-0 px-4 py-2 rounded-md text-sm  border-[0.5px] border-gray-600 focus:outline-[#635fc7] outline-[1px] "
-            placeholder="e.g. It's always good to take a break. This 
-            15 minute break will  recharge the batteries 
-            a little."
-          />
-        </div> */}
-
-        {/* <div className="mt-8 flex flex-col space-y-3">
-          <label className="  text-sm dark:text-white text-gray-500">
-            Subtasks
-          </label>
-          {subtasks.map((subtask, index) => (
-            <div key={index} className=" flex items-center w-full ">
-              <input
-                onChange={(e) => {
-                  onChangeSubtasks(subtask.id, e.target.value);
-                }}
-                type="text"
-                value={subtask.title}
-                className=" bg-transparent outline-none focus:border-0 flex-grow px-4 py-2 rounded-md text-sm  border-[0.5px] border-gray-600 focus:outline-[#635fc7] outline-[1px]  "
-                placeholder=" e.g Take coffee break"
-              />
-              <img
-                src={crossIcon}
-                onClick={() => {
-                  onDelete(subtask.id);
-                }}
-                className=" m-4 cursor-pointer "
-              />
-            </div>
-          ))}
-
-          <button
-            className=" w-full items-center dark:text-[#635fc7] dark:bg-white  text-white bg-[#635fc7] py-2 rounded-full "
-            onClick={() => {
-              setSubtasks((state) => [
-                ...state,
-                { title: "", isCompleted: false, id: uuidv4() },
-              ]);
-            }}
-          >
-            + Add New Subtask
-          </button>
-        </div> */}
 
         <div className="mt-8 flex flex-col space-y-3">
           <label className="  text-sm dark:text-white text-gray-500">

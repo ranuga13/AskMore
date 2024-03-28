@@ -8,6 +8,7 @@ const {
   editBoard,
   deleteTask,
   getBoard,
+  markCompleted,
 } = require("../controllers/usersControllers.js");
 
 const router = express.Router();
@@ -43,5 +44,9 @@ router.put("/tasks/add/:user_id/:board_id", addTask);
 // delete a  task
 // api/users/tasks/delete/:user_id/:board_id
 router.put("/tasks/delete/:user_id/:board_id", deleteTask);
+
+// mark task as completed
+// api/boards/:user_id/:board_id
+router.put("/tasks/complete/:user_id/:board_id", markCompleted);
 
 module.exports = router;

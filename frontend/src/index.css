@@ -16,3 +16,25 @@ body {
     @apply bg-[#50ccc8] py-2 px-4 rounded-full text-white text-lg font-semibold hover:opacity-80 duration-200;
   }
 }
+
+.select-status {
+  background-image: url("./assets//icon-board.svg");
+  appearance: none;
+  background-repeat: no-repeat;
+  background-position: right 16px top 50%;
+}
+
+@layer base {
+  .section {
+    @apply container mx-auto py-24 px-6;
+  }
+  .animate-slide:hover {
+    animation-play-state: paused;
+  }
+
+  .separator {
+    height: 1px;
+    background-color: rgb(138, 137, 137); /* Faded line color */
+    margin: 0 5%; /* Adjust the space on left and right sides */
+  }
+}
