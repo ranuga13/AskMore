@@ -21,9 +21,9 @@ function AddEditBoardModal({ setBoardModalOpen, type }) {
   const activeBoardId = useSelector(selectActiveBoardId);
   // console.log("activeBoardId", activeBoardId);
 
-  const user_id = "user_2da3cJPTyo2uhdBwGKXPmn7bXsu";
-  // const { user } = useUser();
-  // const user_id = user.id;
+  // const user_id = "user_2da3cJPTyo2uhdBwGKXPmn7bXsu";
+  const { user } = useUser();
+  const user_id = user.id;
 
   // const board_id = "65f7e10a0ae87adbd65ecb66";
 
@@ -70,17 +70,19 @@ function AddEditBoardModal({ setBoardModalOpen, type }) {
     return true;
   };
 
-  // Get names of the columns as an array
-  const columnNames = newColumns.map((column) => column.name);
-  console.log(columnNames);
-
   const onSubmit = async (type) => {
     setBoardModalOpen(false);
     if (type === "add") {
       console.log("user_id", user_id);
       try {
-        await dispatch(createBoard({ name, columns: newColumns }));
+        await dispatch(
+          createBoard({
+            user_id,
+            boardData: { name, columns: newColumns },
+          })
+        );
         dispatch(boardSlices.actions.addBoard({ name, newColumns }));
+        // console.log("user_id", user_id, "boardData", { name, newColumns });
       } catch (error) {
         console.error("Error creating board:", error);
       }
