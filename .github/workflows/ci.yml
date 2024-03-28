@@ -1,0 +1,39 @@
+name: CI/CD for MERN App
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      # Node.js setup
+      - name: Use Node.js 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      # Frontend Build (assuming React)
+      - name: Install frontend dependencies
+        working-directory: ./frontend  # Adjust path if needed
+        run: npm install
+
+      - name: Build frontend
+        working-directory: ./frontend  # Adjust path if needed
+        run: npm run build  # Adjust build command if needed
+
+      # Backend Build and Test
+      - name: Install backend dependencies
+        working-directory: ./backend  # Adjust path if needed
+        run: npm install
+
+    
+
+
+# Remember to add AWS credentials (access key and secret) as GitHub Secrets
